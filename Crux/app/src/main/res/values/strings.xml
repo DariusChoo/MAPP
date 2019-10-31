@@ -1,4 +1,17 @@
 <resources>
     <string name="app_name">Crux</string>
     <string name="todo">todo</string>
+    <string name="password">password</string>
+    <string name="register">register</string>
+    <string name="userid">userid</string>
+    <string name="email">email</string>
+    <string name="name">name</string>
+    <string name="android_activity_in_action">text</string>
+    <string name="registration">registration</string>
+    <string name="login">login</string>
+    <string name="about">about</string>
+    <string name="username">Username</string>
+    <string name="password2">Password</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="sign_in">Sign In</string>
 </resources>
