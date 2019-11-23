@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:orientation="vertical">
+
+    <!--ToolBar -->
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clipChildren="false"
+        android:orientation="vertical">
+
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#38598b"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="55dp"
+            android:layout_alignParentStart="false"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="22dp"
+            android:adjustViewBounds="true"
+            android:background="#00000000"
+            android:orientation="horizontal"
+            android:scaleType="fitCenter"
+            android:src="@drawable/searchbar" />
+
+    </RelativeLayout>
+
+
+    <ScrollView
+        android:id="@+id/scrollExplore"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <!--Explore Crux -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/proxima_alt_bold"
+                android:text="Explore Crux"
+                android:textColor="#000"
+                android:textSize="25dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:fontFamily="@font/proxima_bold"
+                android:textColor="#000"
+                android:text="Popular Now"
+                android:textSize="15dp" />
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="vertical">
+
+                        <ImageButton
+                            android:layout_width="200dp"
+                            android:layout_height="110dp"
+                            android:layout_alignParentStart="false"
+                            android:orientation="horizontal"
+                            android:src="@drawable/lolesportscropped"
+                            android:background="#00000000"
+                            android:scaleType="fitCenter"
+                            android:adjustViewBounds="true"/>
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:fontFamily="@font/proxima_bold"
+                            android:text="TODAY 11:00 PM"
+                            android:textColor="@color/colorEvent"
+                            android:textSize="15dp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/proxima_bold"
+                            android:text="League Finals 2019"
+                            android:textSize="16dp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/proxima_regular"
+                            android:text="Come down and watch the finals.."
+                            android:textSize="15dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="vertical">
+
+<!--                        <Button-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="match_parent">-->
+
+                            <ImageButton
+                                android:layout_width="200dp"
+                                android:layout_height="110dp"
+                                android:layout_alignParentStart="false"
+                                android:orientation="horizontal"
+                                android:src="@drawable/badmintonevent_cropped"
+                                android:background="#00000000"
+                                android:scaleType="fitCenter"
+                                android:adjustViewBounds="true"/>
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:fontFamily="@font/proxima_bold"
+                                android:text="TOMMOROW 12:30 PM"
+                                android:textColor="@color/colorEvent"
+                                android:textSize="15dp" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/proxima_bold"
+                                android:text="Fun Children Badminton"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/proxima_regular"
+                                android:text="Parents and children come and.."
+                                android:textSize="15dp" />
+
+<!--                        </Button>-->
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="vertical">
+
+                        <ImageButton
+                            android:layout_width="200dp"
+                            android:layout_height="110dp"
+                            android:layout_alignParentStart="false"
+                            android:orientation="horizontal"
+                            android:src="@drawable/cateventcropped"
+                            android:background="#00000000"
+                            android:scaleType="fitCenter"
+                            android:adjustViewBounds="true"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:fontFamily="@font/proxima_bold"
+                            android:text="WEDNESDAY 12:00 PM"
+                            android:textColor="@color/colorEvent"
+                            android:textSize="15dp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/proxima_bold"
+                            android:text="Cat Cafe Brunch"
+                            android:textSize="16dp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/proxima_regular"
+                            android:text="Brunch with Cat-lovers and cats.."
+                            android:textSize="15dp" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="vertical">
+
+                        <ImageButton
+                            android:layout_width="200dp"
+                            android:layout_height="110dp"
+                            android:layout_alignParentStart="false"
+                            android:orientation="horizontal"
+                            android:src="@drawable/badmintonevent_cropped"
+                            android:background="#00000000"
+                            android:scaleType="fitCenter"
+                            android:adjustViewBounds="true"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:fontFamily="@font/proxima_bold"
+                            android:text="TOMMOROW 12:30pm"
+                            android:textColor="@color/colorEvent"
+                            android:textSize="15dp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/proxima_bold"
+                            android:text="Fun Children Badminton"
+                            android:textSize="16dp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/proxima_regular"
+                            android:text="Parents and children come...."
+                            android:textSize="15dp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/proxima_bold"
+                android:textColor="#000"
+                android:text="Browse by category"
+                android:textSize="20dp" />
+
+
+            <GridView
+                android:id="@+id/gridview"
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="550dp"
+                android:background="#ffffff"
+                android:horizontalSpacing="1dp"
+                android:numColumns="2"
+                android:verticalSpacing="1dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </GridView>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
