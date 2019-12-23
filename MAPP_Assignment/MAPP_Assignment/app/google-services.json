@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "518767593948",
+    "firebase_url": "https://crux-23cf1.firebaseio.com",
+    "project_id": "crux-23cf1",
+    "storage_bucket": "crux-23cf1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:518767593948:android:256bc344c989679c40a719",
+        "android_client_info": {
+          "package_name": "com.example.mapp_assignment"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "518767593948-5l8s81bek8omm4h7ihap2iq6mn8m58qp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mapp_assignment",
+            "certificate_hash": "e1803e8a6a54e966001f7dfd8395fd8565b03ec2"
+          }
+        },
+        {
+          "client_id": "518767593948-09r7ppmiuravphdkg5bvrplj0p3c8p76.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgl6mXx42qid5XYohj9D2SbB0sCFnS2m0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "518767593948-09r7ppmiuravphdkg5bvrplj0p3c8p76.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
