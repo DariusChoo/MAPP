@@ -7,10 +7,13 @@ public class User {
     private String email;
     private String imageURL;
     private String userId;
+    private String[] groupsJoinedId;
+    private String[] eventsJoinedId;
 
     public User(){
 
     }
+
 
     public User(String userName, String email, String imageURL, String userId) {
         this.userName = userName;
@@ -47,5 +50,21 @@ public class User {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String[] getGroupsJoinedId() {
+        return groupsJoinedId;
+    }
+
+    public void setGroupsJoinedId(String[] groupsJoinedId) {
+        this.groupsJoinedId = groupsJoinedId;
+    }
+
+    public String[] getEventsJoinedId() {
+        return eventsJoinedId;
+    }
+
+    public void setEventsJoinedId(String[] eventsJoinedId) {
+        this.eventsJoinedId = eventsJoinedId;
     }
 }
