@@ -27,7 +27,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     private static final String TAG = "Register Activity";
 
-    EditText mFullname, mEmail, mPassword, mRetypedPassword;
+    EditText mUserName, mEmail, mPassword, mRetypedPassword;
     FirebaseAuth fAuth;
     ProgressBar mProgressBar;
     FirebaseFirestore fStore;
@@ -38,7 +38,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_register);
 
         // Get field values
-        mFullname = findViewById(R.id.fullname);
+        mUserName = findViewById(R.id.username);
         mEmail = findViewById(R.id.email);
         mPassword = findViewById(R.id.password);
         mRetypedPassword = findViewById(R.id.retype_password);
@@ -59,7 +59,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         switch (view.getId()) {
             case R.id.btn_register: {
                 if(validateFields()){
-                    String userName = mFullname.getText().toString();
+                    String userName = mUserName.getText().toString();
                     String email = mEmail.getText().toString();
                     String password = mPassword.getText().toString();
 

@@ -2,11 +2,14 @@ package com.example.mapp_assignment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -16,6 +19,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+
+import static android.icu.lang.UProperty.INT_START;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -70,11 +75,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         if (TextUtils.isEmpty(email)) {
             mEmail.setError("Email is required");
+            hideProgressBar();
             return;
         }
 
         if (TextUtils.isEmpty(password)) {
             mPassword.setError("Password is required");
+            hideProgressBar();
             return;
         }
 

@@ -17,7 +17,6 @@ public class User {
         this.email = email;
         this.imageURL = imageURL;
         this.userId = userId;
-
     }
 
     public String getUserName() { return userName; }
