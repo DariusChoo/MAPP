@@ -8,7 +8,7 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class ExploreGridItemActivity extends AppCompatActivity {
+public class ExploreCategoryActivity extends AppCompatActivity {
 
     TextView gridData;
     ImageView imageView;

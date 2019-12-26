@@ -22,8 +22,8 @@ public class ExploreFragment extends Fragment {
     Toolbar tb;
     ScrollView scrollView;
     GridView gridview;
-    String[] categoryNames = {"Outdoors","Gaming","Technology","Sports","LGBT","Friends"};
-    int[] categoryIcon = {R.drawable.mountainco,R.drawable.gamecontrollerico,R.drawable.techico,R.drawable.mountainco,R.drawable.mountainco,R.drawable.mountainco};
+    String[] categoryNames = {"Outdoors","Gaming","Technology","Music","Learning","Art"};
+    int[] categoryIcon = {R.drawable.mountainco,R.drawable.gamecontrollerico,R.drawable.techico,R.drawable.musicico,R.drawable.learningico,R.drawable.artico};
 
 
     @Nullable
@@ -43,7 +43,7 @@ public class ExploreFragment extends Fragment {
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
-                Intent intent = new Intent(getActivity().getApplicationContext(), ExploreGridItemActivity.class);
+                Intent intent = new Intent(getActivity().getApplicationContext(), ExploreCategoryActivity.class);
                 intent.putExtra("name", categoryNames[i]);
                 intent.putExtra("images", categoryIcon[i]);
 

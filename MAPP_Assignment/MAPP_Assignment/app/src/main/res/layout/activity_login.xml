@@ -27,7 +27,7 @@
         android:id="@+id/text_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
+        android:layout_marginStart="30dp"
         android:layout_marginEnd="343dp"
         android:layout_marginBottom="10dp"
         android:fontFamily="@font/proxima_alt_bold"
@@ -43,29 +43,27 @@
 
     <EditText
         android:id="@+id/email"
-        android:layout_width="363dp"
+        android:layout_width="355dp"
         android:layout_height="46dp"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="59dp"
         android:layout_marginEnd="170dp"
         android:layout_marginBottom="404dp"
+        android:backgroundTint="#38598b"
         android:ems="10"
         android:hint="Email"
         android:inputType="textPersonName"
-        android:backgroundTint="#38598b"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
 
-        app:layout_constraintVertical_bias="0.0" />
+        />
 
     <TextView
         android:id="@+id/text_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginStart="34dp"
         android:layout_marginEnd="321dp"
         android:layout_marginBottom="10dp"
         android:fontFamily="@font/proxima_alt_bold"
@@ -75,13 +73,12 @@
         app:layout_constraintBottom_toTopOf="@+id/password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.235"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_bias="0.714" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 
     <EditText
         android:id="@+id/password"
-        android:layout_width="363dp"
+        android:layout_width="355dp"
         android:layout_height="46dp"
         android:layout_marginStart="28dp"
         android:layout_marginEnd="170dp"

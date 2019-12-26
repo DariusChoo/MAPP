@@ -37,7 +37,6 @@
 
     </RelativeLayout>
 
-
     <ScrollView
         android:id="@+id/scrollExplore"
         android:layout_width="match_parent"
