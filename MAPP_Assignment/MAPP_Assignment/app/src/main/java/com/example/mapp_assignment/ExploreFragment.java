@@ -2,6 +2,7 @@ package com.example.mapp_assignment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,29 +17,44 @@ import android.widget.Toolbar;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.mapp_assignment.adapters.HorizontalRecyclerViewAdapter;
+import com.example.mapp_assignment.adapters.RecyclerViewAdapter;
+
+import java.util.ArrayList;
 
 public class ExploreFragment extends Fragment {
 
+    private static final String TAG = "ExploreFragment";
+
+    View rootView;
     Toolbar tb;
     ScrollView scrollView;
     GridView gridview;
     String[] categoryNames = {"Outdoors","Gaming","Technology","Music","Learning","Art"};
     int[] categoryIcon = {R.drawable.mountainco,R.drawable.gamecontrollerico,R.drawable.techico,R.drawable.musicico,R.drawable.learningico,R.drawable.artico};
 
+    // temp vars, insert firebase values to this arrayList
+    private ArrayList<String> mNames = new ArrayList<>();
+    private ArrayList<String> mImageUrls = new ArrayList<>();
+
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View RootView = inflater.inflate(R.layout.fragment_explore, container, false);
+        rootView = inflater.inflate(R.layout.fragment_explore, container, false);
         // Fix the starting view at top
-        scrollView = RootView.findViewById(R.id.scrollExplore);
+        scrollView = rootView.findViewById(R.id.scrollExplore);
         scrollView.smoothScrollTo(0, 0);
 
-        gridview = RootView.findViewById(R.id.gridview);
 
-        CustomAdapter customAdapter = new CustomAdapter();
-        gridview.setAdapter(customAdapter);
+        // Display Popular Events through RecyclerView
+        getImages();
+        // Initialize GridView
+        initGridView();
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -51,8 +67,61 @@ public class ExploreFragment extends Fragment {
             }
         });
 
-        return RootView;
+        return rootView;
     }
+    
+    private void getImages(){
+        Log.d(TAG, "initImageBitmaps: preparing bitmaps.");
+
+        mImageUrls.add("https://c1.staticflickr.com/5/4636/25316407448_de5fbf183d_o.jpg");
+        mNames.add("TODAY 11:00 PM");
+
+        mImageUrls.add("https://i.redd.it/tpsnoz5bzo501.jpg");
+        mNames.add("TODAY 11:00 PM");
+
+        mImageUrls.add("https://i.redd.it/qn7f9oqu7o501.jpg");
+        mNames.add("TODAY 11:00 PM");
+
+        mImageUrls.add("https://i.redd.it/j6myfqglup501.jpg");
+        mNames.add("TODAY 11:00 PM");
+
+
+        mImageUrls.add("https://i.redd.it/0h2gm1ix6p501.jpg");
+        mNames.add("TODAY 11:00 PM");
+
+        mImageUrls.add("https://i.redd.it/k98uzl68eh501.jpg");
+        mNames.add("TODAY 11:00 PM");
+
+
+        mImageUrls.add("https://i.redd.it/glin0nwndo501.jpg");
+        mNames.add("TODAY 11:00 PM");
+
+        mImageUrls.add("https://i.redd.it/obx4zydshg601.jpg");
+        mNames.add("TODAY 11:00 PM");
+
+        mImageUrls.add("https://i.imgur.com/ZcLLrkY.jpg");
+        mNames.add("TODAY 11:00 PM");
+
+        initRecyclerView();
+
+    }
+
+    private void initRecyclerView(){
+        Log.d(TAG, "initRecyclerView: init recyclerview");
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        RecyclerView recyclerView = rootView.findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(layoutManager);
+        HorizontalRecyclerViewAdapter adapter = new HorizontalRecyclerViewAdapter(getContext(), mNames, mImageUrls);
+        recyclerView.setAdapter(adapter);
+    }
+
+    private void initGridView(){
+        gridview = rootView.findViewById(R.id.gridview);
+        CustomAdapter customAdapter = new CustomAdapter();
+        gridview.setAdapter(customAdapter);
+    }
+
 
     private class CustomAdapter extends BaseAdapter {
 
@@ -82,5 +151,4 @@ public class ExploreFragment extends Fragment {
             return view1;
         }
     }
-
 }
