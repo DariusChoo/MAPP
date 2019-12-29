@@ -21,7 +21,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mapp_assignment.adapters.HorizontalRecyclerViewAdapter;
-import com.example.mapp_assignment.adapters.RecyclerViewAdapter;
 
 import java.util.ArrayList;
 
@@ -69,7 +68,7 @@ public class ExploreFragment extends Fragment {
 
         return rootView;
     }
-    
+
     private void getImages(){
         Log.d(TAG, "initImageBitmaps: preparing bitmaps.");
 
