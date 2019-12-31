@@ -1,15 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/holo_blue_light">
+    android:layout_height="match_parent">
 
-
-    <TextView
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-        android:gravity="center_horizontal|center_vertical"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Group Fragment" />
+        android:layout_below="@+id/your_group_layout">
+
+        <!-- Popular Events-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+
+    </RelativeLayout>
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#38598b"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RelativeLayout
+        android:id="@+id/your_group_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:layout_margin="20dp">
+
+        <TextView
+            android:id="@+id/text_view_your_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/proxima_alt_bold"
+            android:text="Your Groups"
+            android:textColor="#000"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/text_view_create_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/text_view_your_group"
+            android:layout_toEndOf="@+id/text_view_your_group"
+            android:fontFamily="@font/proxima_regular"
+            android:gravity="right"
+            android:text="+ Create group"
+            android:textColor="#000"
+            android:textSize="12sp" />
+
+
+    </RelativeLayout>
+
 
 </RelativeLayout>

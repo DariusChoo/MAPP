@@ -60,7 +60,7 @@
                 android:fontFamily="@font/proxima_alt_bold"
                 android:text="Explore Crux"
                 android:textColor="#000"
-                android:textSize="25dp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -69,7 +69,7 @@
                 android:fontFamily="@font/proxima_bold"
                 android:textColor="#000"
                 android:text="Popular Now"
-                android:textSize="15dp" />
+                android:textSize="12sp" />
 
 
 <!--            Popular Events-->
@@ -90,7 +90,7 @@
                 android:fontFamily="@font/proxima_bold"
                 android:textColor="#000"
                 android:text="Browse by category"
-                android:textSize="20dp" />
+                android:textSize="20sp" />
 
 
             <GridView
