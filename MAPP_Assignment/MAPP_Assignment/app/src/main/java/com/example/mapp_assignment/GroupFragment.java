@@ -50,28 +50,28 @@ public class GroupFragment extends Fragment {
         mImageUrls.add("https://i.redd.it/tpsnoz5bzo501.jpg");
         mNames.add("TODAY 11:00 PM");
 
-//        mImageUrls.add("https://i.redd.it/qn7f9oqu7o501.jpg");
-//        mNames.add("TODAY 11:00 PM");
-//
-//        mImageUrls.add("https://i.redd.it/j6myfqglup501.jpg");
-//        mNames.add("TODAY 11:00 PM");
-//
-//
-//        mImageUrls.add("https://i.redd.it/0h2gm1ix6p501.jpg");
-//        mNames.add("TODAY 11:00 PM");
-//
-//        mImageUrls.add("https://i.redd.it/k98uzl68eh501.jpg");
-//        mNames.add("TODAY 11:00 PM");
-//
-//
-//        mImageUrls.add("https://i.redd.it/glin0nwndo501.jpg");
-//        mNames.add("TODAY 11:00 PM");
-//
-//        mImageUrls.add("https://i.redd.it/obx4zydshg601.jpg");
-//        mNames.add("TODAY 11:00 PM");
-//
-//        mImageUrls.add("https://i.imgur.com/ZcLLrkY.jpg");
-//        mNames.add("TODAY 11:00 PM");
+        mImageUrls.add("https://i.redd.it/qn7f9oqu7o501.jpg");
+        mNames.add("TODAY 11:00 PM");
+
+        mImageUrls.add("https://i.redd.it/j6myfqglup501.jpg");
+        mNames.add("TODAY 11:00 PM");
+
+
+        mImageUrls.add("https://i.redd.it/0h2gm1ix6p501.jpg");
+        mNames.add("TODAY 11:00 PM");
+
+        mImageUrls.add("https://i.redd.it/k98uzl68eh501.jpg");
+        mNames.add("TODAY 11:00 PM");
+
+
+        mImageUrls.add("https://i.redd.it/glin0nwndo501.jpg");
+        mNames.add("TODAY 11:00 PM");
+
+        mImageUrls.add("https://i.redd.it/obx4zydshg601.jpg");
+        mNames.add("TODAY 11:00 PM");
+
+        mImageUrls.add("https://i.imgur.com/ZcLLrkY.jpg");
+        mNames.add("TODAY 11:00 PM");
 
         initRecyclerView();
     }
