@@ -80,7 +80,25 @@
             android:text="Your Calendar"
             android:textColor="#000"
             android:textSize="20sp" />
-
     </RelativeLayout>
+
+    <com.google.android.material.tabs.TabLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/your_calendar_layout"
+        app:tabIndicatorColor="#38598b">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/proxima_thin"
+            android:text="ALL"/>
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/proxima_thin"
+            android:text="GOING"/>
+
+    </com.google.android.material.tabs.TabLayout>
 
 </RelativeLayout>
