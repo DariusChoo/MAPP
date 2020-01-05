@@ -40,73 +40,91 @@
     <ScrollView
         android:id="@+id/scrollExplore"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:scrollbars="none">
 
 
         <LinearLayout
+            android:id="@+id/explore_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
-
-            <!--Explore Crux -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:fontFamily="@font/proxima_alt_bold"
-                android:text="Explore Crux"
-                android:textColor="#000"
-                android:textSize="20sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:fontFamily="@font/proxima_bold"
-                android:textColor="#000"
-                android:text="Popular Now"
-                android:textSize="12sp" />
-
-
-<!--            Popular Events-->
-            <androidx.recyclerview.widget.RecyclerView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="5dp"
+                android:orientation="vertical">
+
+                <!--Explore Crux -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/proxima_alt_bold"
+                    android:text="Explore Crux"
+                    android:textColor="#000"
+                    android:textSize="20sp" />
+
+                <!--Explore Crux -->
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/proxima_bold"
+                    android:layout_marginTop="15dp"
+                    android:text="Popular Now"
+                    android:textColor="#000"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+
+
+
+            <!--Popular Events-->
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingStart="10dp"
+                android:clipToPadding="false"
                 android:orientation="horizontal">
 
             </androidx.recyclerview.widget.RecyclerView>
 
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="30dp"
-                android:fontFamily="@font/proxima_bold"
-                android:textColor="#000"
-                android:text="Browse by category"
-                android:textSize="20sp" />
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_margin="20dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/proxima_bold"
+                    android:text="Browse by category"
+                    android:textColor="#000"
+                    android:textSize="20sp" />
 
 
-            <GridView
-                android:id="@+id/gridview"
-                android:padding="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="550dp"
-                android:background="#ffffff"
-                android:horizontalSpacing="1dp"
-                android:numColumns="2"
-                android:verticalSpacing="1dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                <GridView
+                    android:id="@+id/gridview"
+                    android:layout_width="match_parent"
+                    android:layout_height="530dp"
+                    android:background="#ffffff"
+                    android:horizontalSpacing="1dp"
+                    android:numColumns="2"
+                    android:padding="10dp"
+                    android:verticalSpacing="1dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+                </GridView>
 
-            </GridView>
-
+            </LinearLayout>
 
         </LinearLayout>
 

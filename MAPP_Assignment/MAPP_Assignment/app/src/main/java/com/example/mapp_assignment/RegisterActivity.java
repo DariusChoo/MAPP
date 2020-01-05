@@ -38,10 +38,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_register);
 
         // Get field values
-        mUserName = findViewById(R.id.username);
-        mEmail = findViewById(R.id.email);
-        mPassword = findViewById(R.id.password);
-        mRetypedPassword = findViewById(R.id.retype_password);
+        mUserName = findViewById(R.id.edit_text_username);
+        mEmail = findViewById(R.id.edit_text_email);
+        mPassword = findViewById(R.id.edit_text_password);
+        mRetypedPassword = findViewById(R.id.edit_text_retypepassword);
         mProgressBar = findViewById(R.id.progressBarRegister);
 
         findViewById(R.id.btn_register).setOnClickListener(this);
