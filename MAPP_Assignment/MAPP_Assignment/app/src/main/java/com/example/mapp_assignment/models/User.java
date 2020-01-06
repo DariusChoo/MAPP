@@ -1,5 +1,7 @@
 package com.example.mapp_assignment.models;
 
+import com.google.firebase.firestore.CollectionReference;
+
 public class User {
 
 
@@ -7,8 +9,8 @@ public class User {
     private String email;
     private String imageURL;
     private String userId;
-    private String[] groupsJoinedId;
-    private String[] eventsJoinedId;
+    private int groupCount;
+    private int eventCount;
 
     public User(){
 
@@ -52,19 +54,19 @@ public class User {
         this.userId = userId;
     }
 
-    public String[] getGroupsJoinedId() {
-        return groupsJoinedId;
+    public int getEventCount() {
+        return eventCount;
     }
 
-    public void setGroupsJoinedId(String[] groupsJoinedId) {
-        this.groupsJoinedId = groupsJoinedId;
+    public void setEventCount(int eventCount) {
+        this.eventCount = eventCount;
     }
 
-    public String[] getEventsJoinedId() {
-        return eventsJoinedId;
+    public int getGroupCount() {
+        return groupCount;
     }
 
-    public void setEventsJoinedId(String[] eventsJoinedId) {
-        this.eventsJoinedId = eventsJoinedId;
+    public void setGroupCount(int groupCount) {
+        this.groupCount = groupCount;
     }
 }

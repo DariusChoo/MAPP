@@ -19,9 +19,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import com.example.mapp_assignment.models.User;
+import com.example.mapp_assignment.models.*;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -110,13 +111,16 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     Toast.makeText(RegisterActivity.this, "User is created", Toast.LENGTH_SHORT).show();
                     final String userId = fAuth.getCurrentUser().getUid();
 
+                    DocumentReference newUserDocRef = fStore.collection("user").document(userId);
+
                     User user = new User();
                     user.setUserName(userName);
                     user.setEmail(email);
                     user.setImageURL("default");
                     user.setUserId(userId);
+                    user.setEventCount(0);
+                    user.setGroupCount(0);
 
-                    DocumentReference newUserDocRef = fStore.collection("user").document(userId);
                     newUserDocRef.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
 
                         @Override
@@ -130,6 +134,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             Log.d(TAG, "On Failure: " + e.toString());
                         }
                     });
+
                     hideProgressBar();
 
                 } else {
@@ -139,6 +144,15 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             }
         });
     }
+
+
+    // Note increment value
+//    public Task<Void> incrementCounter(final DocumentReference ref, final int numShards) {
+//        int shardId = (int) Math.floor(Math.random() * numShards);
+//        DocumentReference shardRef = ref.collection("shards").document(String.valueOf(shardId));
+//
+//        return shardRef.update("count", FieldValue.increment(1));
+//    }
 
     private void showProgressBar(){
         mProgressBar.setVisibility(View.VISIBLE);

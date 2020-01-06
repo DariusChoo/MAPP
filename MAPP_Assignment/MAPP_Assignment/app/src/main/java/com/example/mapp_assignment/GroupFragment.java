@@ -45,14 +45,14 @@ public class GroupFragment extends Fragment {
         Log.d(TAG, "initImageBitmaps: preparing bitmaps.");
 
         //mImageUrls.add("https://c1.staticflickr.com/5/4636/25316407448_de5fbf183d_o.jpg");
-        mImageUrls.add("https://c1.staticflickr.com/5/4636/25316407448_de5fbf183d_o.jpg");
-        mNames.add("Cat Gang Lovers");
+        mImageUrls.add("https://dotesports-media.nyc3.cdn.digitaloceanspaces.com/wp-content/uploads/2019/09/12195522/league-of-legends.jpg");
+        mNames.add("League of Legend group");
 
-        mImageUrls.add("https://i.redd.it/tpsnoz5bzo501.jpg");
-        mNames.add("TODAY 11:00 PM");
+        mImageUrls.add("https://i.redd.it/8had39fy2m741.jpg");
+        mNames.add("Cat gang lovers");
 
         mImageUrls.add("https://i.redd.it/qn7f9oqu7o501.jpg");
-        mNames.add("TODAY 11:00 PM");
+        mNames.add("Sea Lovers");
 
         mImageUrls.add("https://i.redd.it/j6myfqglup501.jpg");
         mNames.add("TODAY 11:00 PM");
