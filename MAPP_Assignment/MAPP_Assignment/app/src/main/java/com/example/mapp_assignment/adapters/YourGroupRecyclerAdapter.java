@@ -16,7 +16,7 @@ import com.example.mapp_assignment.R;
 
 import java.util.ArrayList;
 
-public class YourGroupRecyclerVIewAdapter extends RecyclerView.Adapter<YourGroupRecyclerVIewAdapter.ViewHolder> {
+public class YourGroupRecyclerAdapter extends RecyclerView.Adapter<YourGroupRecyclerAdapter.ViewHolder> {
 
     private static final String TAG = "HorizontalRecyclerViewAdapter";
 
@@ -25,7 +25,7 @@ public class YourGroupRecyclerVIewAdapter extends RecyclerView.Adapter<YourGroup
     private ArrayList<String> mImageUrls = new ArrayList<>();
     private Context mContext;
 
-    public YourGroupRecyclerVIewAdapter(Context context, ArrayList<String> names, ArrayList<String> imageUrls) {
+    public YourGroupRecyclerAdapter(Context context, ArrayList<String> names, ArrayList<String> imageUrls) {
         mNames = names;
         mImageUrls = imageUrls;
         mContext = context;

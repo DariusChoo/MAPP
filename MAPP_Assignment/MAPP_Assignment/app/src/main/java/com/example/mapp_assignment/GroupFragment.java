@@ -5,15 +5,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mapp_assignment.adapters.HorizontalRecyclerViewAdapter;
-import com.example.mapp_assignment.adapters.YourGroupRecyclerVIewAdapter;
+import com.example.mapp_assignment.adapters.YourGroupRecyclerAdapter;
 
 import java.util.ArrayList;
 
@@ -83,7 +81,7 @@ public class GroupFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         RecyclerView recyclerView = rootView.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(layoutManager);
-        YourGroupRecyclerVIewAdapter adapter = new YourGroupRecyclerVIewAdapter(getContext(), mNames, mImageUrls);
+        YourGroupRecyclerAdapter adapter = new YourGroupRecyclerAdapter(getContext(), mNames, mImageUrls);
         recyclerView.setAdapter(adapter);
     }
 
