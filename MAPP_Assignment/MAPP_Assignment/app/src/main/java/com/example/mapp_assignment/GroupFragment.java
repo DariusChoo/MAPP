@@ -1,10 +1,12 @@
 package com.example.mapp_assignment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -15,7 +17,7 @@ import com.example.mapp_assignment.adapters.YourGroupRecyclerAdapter;
 
 import java.util.ArrayList;
 
-public class GroupFragment extends Fragment {
+public class GroupFragment extends Fragment{
 
     private static final String TAG = "GroupFragment";
     View rootView;
@@ -28,18 +30,30 @@ public class GroupFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        rootView = inflater.inflate(R.layout.fragment_group,container, false);
+        rootView = inflater.inflate(R.layout.fragment_group, container, false);
 
-//        TextView textView = (TextView) rootView.findViewById(R.id.text_view_create_group);
+        TextView textView = (TextView) rootView.findViewById(R.id.text_view_create_group);
 //        textView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_add_black_24dp, 0, 0, 0);
 
+       //Create group button
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment selectedFragment = new CreateGroupFragment();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, selectedFragment, "findThisFragment")
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
         // Display Popular Events through RecyclerView
         getImages();
 
         return rootView;
     }
 
-    private void getImages(){
+
+    private void getImages() {
         Log.d(TAG, "initImageBitmaps: preparing bitmaps.");
 
         //mImageUrls.add("https://c1.staticflickr.com/5/4636/25316407448_de5fbf183d_o.jpg");
@@ -75,7 +89,7 @@ public class GroupFragment extends Fragment {
         initRecyclerView();
     }
 
-    private void initRecyclerView(){
+    private void initRecyclerView() {
         Log.d(TAG, "initRecyclerView: init recyclerview");
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
