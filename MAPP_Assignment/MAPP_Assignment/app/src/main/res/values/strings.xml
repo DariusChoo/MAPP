@@ -3,4 +3,13 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="category">
+        <item>Outdoors</item>
+        <item>Technology</item>
+        <item>Music</item>
+        <item>Art</item>
+        <item>Game</item>
+        <item>Sports</item>
+    </string-array>
 </resources>

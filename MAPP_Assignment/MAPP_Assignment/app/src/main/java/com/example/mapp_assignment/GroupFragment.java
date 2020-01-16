@@ -26,6 +26,9 @@ public class GroupFragment extends Fragment{
     private ArrayList<String> mNames = new ArrayList<>();
     private ArrayList<String> mImageUrls = new ArrayList<>();
 
+    private final String defaultProfileImageUrl = "https://firebasestorage.googleapis.com/v0/b/crux-23cf1.appspot.com/o/default%2Fdefault_proifle_img.jpg?alt=media&token=9e65875e-c926-402f-8cbe-2ef69cc50ce5";
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -60,7 +63,7 @@ public class GroupFragment extends Fragment{
         mImageUrls.add("https://dotesports-media.nyc3.cdn.digitaloceanspaces.com/wp-content/uploads/2019/09/12195522/league-of-legends.jpg");
         mNames.add("League of Legend group");
 
-        mImageUrls.add("https://i.redd.it/8had39fy2m741.jpg");
+        mImageUrls.add(defaultProfileImageUrl);
         mNames.add("Cat gang lovers");
 
         mImageUrls.add("https://i.redd.it/qn7f9oqu7o501.jpg");

@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -27,8 +28,9 @@ import com.example.mapp_assignment.models.*;
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "Register Activity";
+    private final String defaultProfileImageUrl = "https://firebasestorage.googleapis.com/v0/b/crux-23cf1.appspot.com/o/default%2Fdefault_proifle_img.jpg?alt=media&token=9e65875e-c926-402f-8cbe-2ef69cc50ce5";
 
-    EditText mUserName, mEmail, mPassword, mRetypedPassword;
+    TextInputLayout mUserName, mEmail, mPassword, mRetypedPassword;
     FirebaseAuth fAuth;
     ProgressBar mProgressBar;
     FirebaseFirestore fStore;
@@ -60,9 +62,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         switch (view.getId()) {
             case R.id.btn_register: {
                 if(validateFields()){
-                    String userName = mUserName.getText().toString();
-                    String email = mEmail.getText().toString();
-                    String password = mPassword.getText().toString();
+                    String userName = mUserName.getEditText().getText().toString();
+                    String email = mEmail.getEditText().getText().toString();
+                    String password = mPassword.getEditText().getText().toString();
 
                     registerUser(userName,email, password );
                 }
@@ -78,22 +80,22 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
 
     private boolean validateFields(){
-        if (TextUtils.isEmpty(mEmail.getText().toString())) {
+        if (TextUtils.isEmpty(mEmail.getEditText().getText().toString())) {
             mEmail.setError("Email is required");
             return false;
         }
 
-        if (TextUtils.isEmpty(mPassword.getText().toString())) {
+        if (TextUtils.isEmpty(mPassword.getEditText().getText().toString())) {
             mPassword.setError("Password is required");
             return false;
         }
 
-        if (mPassword.getText().toString().length() < 6) {
+        if (mPassword.getEditText().getText().toString().length() < 6) {
             mPassword.setError("Password Must be more than 6 characters");
             return false;
         }
 
-        if (!mPassword.getText().toString().equals(mRetypedPassword.getText().toString())) {
+        if (!mPassword.getEditText().getText().toString().equals(mRetypedPassword.getEditText().getText().toString())) {
             mRetypedPassword.setError("Passwords do not match");
             return false;
         }
@@ -116,7 +118,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     User user = new User();
                     user.setUserName(userName);
                     user.setEmail(email);
-                    user.setImageURL("default");
+                    user.setImageURL(defaultProfileImageUrl);
                     user.setUserId(userId);
                     user.setEventCount(0);
                     user.setGroupCount(0);
