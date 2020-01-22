@@ -12,6 +12,15 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.mapp_assignment.models.Group;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.example.mapp_assignment.models.Group;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,6 +43,7 @@ public class CreateGroupFragment extends Fragment {
 
 
     View rootView;
+
     private TextInputLayout textGroupName;
     private TextInputLayout textGroupDescription;
     private Spinner spinnerGroupCategory;
@@ -43,11 +53,13 @@ public class CreateGroupFragment extends Fragment {
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         rootView = inflater.inflate(R.layout.fragment_create_group, container, false);
-        
+
         textGroupName = rootView.findViewById(R.id.text_input_group_name);
         textGroupDescription = rootView.findViewById(R.id.text_input_group_description);
         spinnerGroupCategory = rootView.findViewById(R.id.group_category);
@@ -57,25 +69,33 @@ public class CreateGroupFragment extends Fragment {
         initFirebaseConnection();
         initArrayAdapter();
         initOnClickListener();
+        rootView = inflater.inflate(R.layout.fragment_create_group, container, false);
+
+        // Get instance of firebase authentication
+        fAuth = FirebaseAuth.getInstance();
+        // Get instance of firebase firestore
+        fStore = FirebaseFirestore.getInstance();
+
 
         return rootView;
     }
 
-    private void initFirebaseConnection(){
+
+    private void initFirebaseConnection() {
         // Get instance of firebase authentication
         fAuth = FirebaseAuth.getInstance();
         // Get instance of firebase firestore
         fStore = FirebaseFirestore.getInstance();
     }
 
-    private void initArrayAdapter(){
+    private void initArrayAdapter() {
         // Create ArrayAdapter and set items and layout for spinner
         ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.category));
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerGroupCategory.setAdapter(myAdapter);
     }
 
-    private void initOnClickListener(){
+    private void initOnClickListener() {
         //Create group button
         createGroup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,19 +166,41 @@ public class CreateGroupFragment extends Fragment {
                                 .replace(R.id.fragment_container, selectedFragment, "findThisFragment")
                                 .addToBackStack(null)
                                 .commit();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error adding document", e);
-                    }
-                });
+
+
+                        final String userId = fAuth.getCurrentUser().getUid();
+
+                        Group newGroup = new Group();
+                        newGroup.setGroupName("Kitty Lovers");
+                        newGroup.setCreatorId(userId);
+                        newGroup.setGroupMemberCount(0);
+
+
+                        CollectionReference groupCollectionRef = fStore.collection("groups");
+
+                        groupCollectionRef
+                                .add(newGroup)
+                                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                    @Override
+                                    public void onSuccess(DocumentReference documentReference) {
+                                        Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.w(TAG, "Error adding document", e);
+                                    }
+                                });
+
 //        String input = "Group name: " + textGroupName.getEditText().getText().toString();
 //        input += "\n";
 //        input +="Grouo Description: " + textGroupDescription.getEditText().getText().toString();
 //
-//        Toast.makeText(getActivity(), input,Toast.LENGTH_SHORT).show();
-    }
+//        Toast.makeText(getActivity(), input,Toast.LENGTH_SHORT).show()
 
+                    }
+
+                });
+    }
 }

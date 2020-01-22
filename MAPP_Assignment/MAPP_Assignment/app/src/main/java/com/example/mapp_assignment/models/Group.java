@@ -1,8 +1,5 @@
 package com.example.mapp_assignment.models;
 
-import com.google.firebase.firestore.CollectionReference;
-
-import java.util.Collection;
 
 public class Group {
     private String groupName;
@@ -13,7 +10,8 @@ public class Group {
     private String interest;
     private int groupMemberCount;
 
-    public Group(){}
+    public Group() {
+    }
 
 
     public Group(String groupName, String groupDescription, String imageURL, String creatorId, String category, String interest, int groupMemberCount) {
