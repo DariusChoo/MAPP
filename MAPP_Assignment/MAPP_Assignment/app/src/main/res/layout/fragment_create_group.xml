@@ -1,112 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:clipToPadding="false"
-        android:background="#38598b">
+        android:background="#38598b"
+        android:clipToPadding="false">
 
         <TextView
+            android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Create a group"
-            android:fontFamily="@font/proxima_regular"
-            android:textColor="#FFF"
-            android:textSize="16sp"
             android:layout_gravity="center"
-            android:id="@+id/toolbar_title" />
+            android:fontFamily="@font/proxima_regular"
+            android:text="Create a group"
+            android:textColor="#FFF"
+            android:textSize="16sp" />
 
     </androidx.appcompat.widget.Toolbar>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/text_input_group_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:counterEnabled="true"
-        app:counterMaxLength="20"
-        app:errorEnabled="true">
 
-        <com.google.android.material.textfield.TextInputEditText
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            app:cardCornerRadius="12dp"
+            android:layout_gravity="center">
+
+            <ImageView
+                android:id="@+id/image_group"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorTheme"
+                android:src="@drawable/ic_add_a_photo_black_50dp"
+                android:scaleType="fitCenter"
+                android:padding="40dp"/>
+
+        </androidx.cardview.widget.CardView>
+
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_group_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Group Name"
-            android:inputType="text"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
+            app:counterEnabled="true"
+            android:padding="10dp"
+            app:counterMaxLength="20"
+            app:errorEnabled="true">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/text_input_group_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:counterMaxLength="100"
-        app:counterEnabled="true"
-        app:errorEnabled="true"
-        >
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Group Name"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_group_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Group Description"
-            android:inputType="text|textMultiLine"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
+            app:counterEnabled="true"
+            app:counterMaxLength="100"
+            android:padding="10dp"
+            app:errorEnabled="true">
 
-<!--    <com.google.android.material.textfield.TextInputLayout-->
-<!--        android:id="@+id/text_input_password"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:passwordToggleEnabled="true"-->
-<!--        app:errorEnabled="true"-->
-<!--        >-->
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Group Description"
+                android:inputType="text|textMultiLine" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-<!--        <com.google.android.material.textfield.TextInputEditText-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:hint="Group Description"-->
-<!--            android:inputType="textPassword"-->
-<!--            />-->
-<!--    </com.google.android.material.textfield.TextInputLayout>-->
-
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/group_category"
-        android:backgroundTint="#38598b"/>
-
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/text_input_group_interest"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:counterMaxLength="20"
-        app:counterEnabled="true"
-        app:errorEnabled="true"
-        >
-
-        <com.google.android.material.textfield.TextInputEditText
+        <Spinner
+            android:id="@+id/group_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Group Interest"
-            android:inputType="text"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:backgroundTint="#38598b"
+            android:padding="10dp"
+            android:layout_marginEnd="100dp"/>
 
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_group_interest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:counterEnabled="true"
+            app:counterMaxLength="20"
+            android:layout_marginEnd="100dp"
+            android:padding="10dp"
 
-    <Button
-        android:id="@+id/button_create_group"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Create Group" />
+            app:errorEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Group Interest"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
 
 
+        <Button
+            android:id="@+id/button_create_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Create Group" />
 
+    </LinearLayout>
 
 </LinearLayout>
 

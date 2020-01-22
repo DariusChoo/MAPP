@@ -14,13 +14,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mapp_assignment.adapters.YourGroupRecyclerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
 public class GroupFragment extends Fragment{
 
     private static final String TAG = "GroupFragment";
-    View rootView;
+    private View rootView;
+    private TextView textView;
+
+    FirebaseAuth fAuth;
+    FirebaseFirestore fStore;
 
     // temp vars, insert firebase values to this arrayList
     private ArrayList<String> mNames = new ArrayList<>();
@@ -35,10 +41,26 @@ public class GroupFragment extends Fragment{
 
         rootView = inflater.inflate(R.layout.fragment_group, container, false);
 
-        TextView textView = (TextView) rootView.findViewById(R.id.text_view_create_group);
+        textView = (TextView) rootView.findViewById(R.id.text_view_create_group);
 //        textView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_add_black_24dp, 0, 0, 0);
 
-       //Create group button
+
+        // Display Popular Events through RecyclerView
+        getImages();
+        // Initialize OnclickListener in this activty
+        initOnclickLister();
+
+        return rootView;
+    }
+    private void initFirebaseConnection() {
+        // Get instance of firebase authentication
+        fAuth = FirebaseAuth.getInstance();
+        // Get instance of firebase firestore
+        fStore = FirebaseFirestore.getInstance();
+    }
+
+    private void initOnclickLister(){
+        //Create group button
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,10 +71,6 @@ public class GroupFragment extends Fragment{
                         .commit();
             }
         });
-        // Display Popular Events through RecyclerView
-        getImages();
-
-        return rootView;
     }
 
 
