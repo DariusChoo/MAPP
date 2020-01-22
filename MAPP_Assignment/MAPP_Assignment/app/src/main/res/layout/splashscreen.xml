@@ -6,7 +6,9 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:layout_width="490dp"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:src="@drawable/splashscreen"
         app:layout_constraintBottom_toBottomOf="parent"
