@@ -10,6 +10,10 @@ public class Group {
     private String creatorId;
     private int groupMemberCount;
 
+    public Group(){
+
+    }
+
     public String getGroupName() {
         return groupName;
     }
