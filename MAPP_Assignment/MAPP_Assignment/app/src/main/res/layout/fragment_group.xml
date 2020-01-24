@@ -62,6 +62,32 @@
             app:layout_constraintTop_toTopOf="parent">
 
         </androidx.recyclerview.widget.RecyclerView>
+
+        <TextView
+            android:id="@+id/text_view_no_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/proxima_regular"
+            android:gravity="center"
+            android:text="Seems like your not in any group"
+            android:textSize="10sp"/>
+
+        <TextView
+            android:layout_below="@+id/text_view_no_group"
+            android:id="@+id/text_view_go_explore"
+            android:fontFamily="@font/proxima_regular"
+            android:textColor="@color/colorTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginBottom="30dp"
+            android:text="Go to Explore"
+            android:textSize="14sp"/>
+
+
+
     </RelativeLayout>
 
 

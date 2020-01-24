@@ -1,6 +1,5 @@
 package com.example.mapp_assignment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,23 +7,32 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mapp_assignment.adapters.YourGroupRecyclerAdapter;
+import com.example.mapp_assignment.models.Group;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
-public class GroupFragment extends Fragment{
+public class GroupFragment extends Fragment {
 
     private static final String TAG = "GroupFragment";
     private View rootView;
-    private TextView textView;
+    private TextView mCreateGroup;
+    private TextView mNoGroupTextView;
+    private TextView mNoGroupGoExplore;
 
+    private String userId;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
 
@@ -41,17 +49,20 @@ public class GroupFragment extends Fragment{
 
         rootView = inflater.inflate(R.layout.fragment_group, container, false);
 
-        textView = (TextView) rootView.findViewById(R.id.text_view_create_group);
-//        textView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_add_black_24dp, 0, 0, 0);
-
-
+        mCreateGroup = (TextView) rootView.findViewById(R.id.text_view_create_group);
+        mNoGroupTextView = rootView.findViewById(R.id.text_view_no_group);
+        mNoGroupGoExplore = rootView.findViewById(R.id.text_view_go_explore);
+        RecyclerView rec = rootView.findViewById(R.id.recycler_view);
+        rec.setVisibility(View.INVISIBLE);
+        initFirebaseConnection();
         // Display Popular Events through RecyclerView
-        getImages();
+        loadGroupData();
         // Initialize OnclickListener in this activty
         initOnclickLister();
 
         return rootView;
     }
+
     private void initFirebaseConnection() {
         // Get instance of firebase authentication
         fAuth = FirebaseAuth.getInstance();
@@ -59,9 +70,9 @@ public class GroupFragment extends Fragment{
         fStore = FirebaseFirestore.getInstance();
     }
 
-    private void initOnclickLister(){
+    private void initOnclickLister() {
         //Create group button
-        textView.setOnClickListener(new View.OnClickListener() {
+        mCreateGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Fragment selectedFragment = new CreateGroupFragment();
@@ -71,43 +82,55 @@ public class GroupFragment extends Fragment{
                         .commit();
             }
         });
+
+        mNoGroupGoExplore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment selectedFragment = new ExploreFragment();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, selectedFragment, "findThisFragment")
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+
     }
 
 
-    private void getImages() {
+    private void loadGroupData() {
         Log.d(TAG, "initImageBitmaps: preparing bitmaps.");
 
-        //mImageUrls.add("https://c1.staticflickr.com/5/4636/25316407448_de5fbf183d_o.jpg");
-        mImageUrls.add("https://dotesports-media.nyc3.cdn.digitaloceanspaces.com/wp-content/uploads/2019/09/12195522/league-of-legends.jpg");
-        mNames.add("League of Legend group");
+        // Get User id
+        String userId = fAuth.getCurrentUser().getUid();
+        // Query group data
+        fStore.collection("groups")
+                .whereArrayContains("membersId", userId)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            if (task.getResult().size() == 0) {
 
-        mImageUrls.add(defaultProfileImageUrl);
-        mNames.add("Cat gang lovers");
+                            } else {
+                                // Remove default view
+                                mNoGroupTextView.setVisibility(View.GONE);
+                                mNoGroupGoExplore.setVisibility(View.GONE);
 
-        mImageUrls.add("https://i.redd.it/qn7f9oqu7o501.jpg");
-        mNames.add("Sea Lovers");
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    Log.d(TAG, document.getId() + " => " + document.getData());
+                                    Group group = document.toObject(Group.class);
+                                    mImageUrls.add(group.getImageURL());
+                                    mNames.add(group.getGroupName());
+                                }
+                                initRecyclerView();
+                            }
 
-        mImageUrls.add("https://i.redd.it/j6myfqglup501.jpg");
-        mNames.add("TODAY 11:00 PM");
-
-
-        mImageUrls.add("https://i.redd.it/0h2gm1ix6p501.jpg");
-        mNames.add("TODAY 11:00 PM");
-
-        mImageUrls.add("https://i.redd.it/k98uzl68eh501.jpg");
-        mNames.add("TODAY 11:00 PM");
-
-
-        mImageUrls.add("https://i.redd.it/glin0nwndo501.jpg");
-        mNames.add("TODAY 11:00 PM");
-
-        mImageUrls.add("https://i.redd.it/obx4zydshg601.jpg");
-        mNames.add("TODAY 11:00 PM");
-
-        mImageUrls.add("https://i.imgur.com/ZcLLrkY.jpg");
-        mNames.add("TODAY 11:00 PM");
-
-        initRecyclerView();
+                        } else {
+                            Log.d(TAG, "onComplete: Error Loading Group data" );
+                        }
+                    }
+                });
     }
 
     private void initRecyclerView() {

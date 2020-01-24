@@ -32,19 +32,20 @@
         android:orientation="vertical">
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/card_view_group_image"
             android:layout_width="150dp"
             android:layout_height="150dp"
             app:cardCornerRadius="12dp"
+            app:cardBackgroundColor="@color/colorTheme"
             android:layout_gravity="center">
 
             <ImageView
                 android:id="@+id/image_group"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/colorTheme"
-                android:src="@drawable/ic_add_a_photo_black_50dp"
-                android:scaleType="fitCenter"
-                android:padding="40dp"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_add_a_photo_black_50dp" />
 
         </androidx.cardview.widget.CardView>
 

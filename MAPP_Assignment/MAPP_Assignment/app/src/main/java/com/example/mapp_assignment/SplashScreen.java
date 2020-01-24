@@ -14,7 +14,7 @@ public class SplashScreen extends Activity {
 
         //Force Logout everytime the app is open as logout button has not been made
         // comment this so that user stays signed in when the log in or registers
-        // FirebaseAuth.getInstance().signOut();
+         FirebaseAuth.getInstance().signOut();
         // Launch the layout -> splash.xml
         setContentView(R.layout.splashscreen);
         Thread splashThread = new Thread() {
