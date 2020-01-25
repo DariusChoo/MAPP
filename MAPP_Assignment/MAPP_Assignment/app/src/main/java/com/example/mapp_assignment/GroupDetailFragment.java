@@ -9,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,6 +44,7 @@ public class GroupDetailFragment extends Fragment {
     private TextView mGroupName;
     private TextView mGroupDescription;
     private FloatingActionButton mButtonCreateEvent;
+    private Button mButtonJoinGroup;
 
     private String userId;
     private String groupId;
@@ -61,6 +63,7 @@ public class GroupDetailFragment extends Fragment {
         mGroupImageView = rootView.findViewById(R.id.image_group);
         mGroupDescription = rootView.findViewById(R.id.text_group_description);
         mButtonCreateEvent = rootView.findViewById(R.id.button_create_event);
+        mButtonJoinGroup = rootView.findViewById(R.id.button_join_group);
 
         Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
         ((MainActivity)getActivity()).setSupportActionBar(toolbar);
@@ -112,7 +115,7 @@ public class GroupDetailFragment extends Fragment {
     }
 
     private void initOnClickListener(){
-        //Add group photo
+        //GO to create event
         mButtonCreateEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,13 +127,20 @@ public class GroupDetailFragment extends Fragment {
                         .commit();
             }
         });
-    }
 
-    private boolean isOwner(String creatorId){
-        if(creatorId.equals(userId)){
-            return true;
-        }
-        return false;
+        // Join group
+        mButtonJoinGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                userJoinGroup();
+                Fragment selectedFragment = new GroupFragment();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .setCustomAnimations(R.anim.slide_in_down,R.anim.fade_out,R.anim.fade_in,R.anim.fade_out)
+                        .replace(R.id.fragment_container, selectedFragment, "findThisFragment")
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
     }
 
     private void userLeaveGroup(){
@@ -140,6 +150,14 @@ public class GroupDetailFragment extends Fragment {
                         "groupMemberCount", FieldValue.increment(-1)
                 );
 
+    }
+
+    private void userJoinGroup(){
+        fStore.collection("groups").document(groupId)
+                .update(
+                        "membersId", FieldValue.arrayUnion(userId),
+                        "groupMemberCount", FieldValue.increment(1)
+                );
     }
 
     private void loadGroupData(){
@@ -155,9 +173,14 @@ public class GroupDetailFragment extends Fragment {
                         if (documentSnapshot != null && documentSnapshot.exists()) {
                             Group group = documentSnapshot.toObject(Group.class);
                             // Show Create Event button when user is owner of group
-                            if(isOwner(group.getCreatorId())){
+                            if(group.getCreatorId().equals(userId)){
                                 mButtonCreateEvent.show();
                             };
+                            // Show Join Group button if not a member of group
+                            if(!group.getMembersId().contains(userId)){
+                                mButtonJoinGroup.setVisibility(View.VISIBLE);
+                            }
+
                             mGroupName.setText(group.getGroupName());
                             mGroupDescription.setText(group.getGroupDescription());
                             Glide.with(getActivity())
