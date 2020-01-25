@@ -6,14 +6,19 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -27,6 +32,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
@@ -58,6 +64,7 @@ public class CreateGroupFragment extends Fragment {
     private CardView mCardViewGroupImage;
     private ImageView groupImageView;
     private Uri mImageUri;
+    private View mProgressLayout;
     Button createGroup;
 
     private FirebaseAuth fAuth;
@@ -80,6 +87,14 @@ public class CreateGroupFragment extends Fragment {
         mGroupInterest = rootView.findViewById(R.id.text_input_group_interest);
         createGroup = rootView.findViewById(R.id.button_create_group);
         mCardViewGroupImage = rootView.findViewById(R.id.card_view_group_image);
+        mProgressLayout = rootView.findViewById(R.id.progress_layout);
+
+        Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
+        ((MainActivity)getActivity()).setSupportActionBar(toolbar);
+        ((MainActivity)getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close_white_24dp);
+        ((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle("");
+        setHasOptionsMenu(true);
 
 
         initFirebaseConnection();
@@ -90,6 +105,24 @@ public class CreateGroupFragment extends Fragment {
         Log.d(TAG, "USER ID C" + userId);
 
         return rootView;
+    }
+
+//    @Override
+//    public  void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
+//        inflater.inflate(R.menu.group_detail_menu, menu);
+//        super.onCreateOptionsMenu(menu,inflater);
+//    }
+//
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                getFragmentManager().popBackStackImmediate();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
@@ -141,6 +174,7 @@ public class CreateGroupFragment extends Fragment {
                 if (!validateGroupName() | !validateGroupDescription()) {
                     return;
                 } else {
+                    mProgressLayout.setVisibility(View.VISIBLE);
                     createGroup();
                 }
             }
@@ -161,7 +195,6 @@ public class CreateGroupFragment extends Fragment {
         return mime.getExtensionFromMimeType(cr.getType(uri));
     }
 
-
     private boolean validateGroupName() {
         String groupNameInput = mGroupName.getEditText().getText().toString().trim();
 
@@ -178,13 +211,13 @@ public class CreateGroupFragment extends Fragment {
         String groupDescriptionInput = mGroupDescription.getEditText().getText().toString().trim();
 
         if (groupDescriptionInput.isEmpty()) {
-            mGroupName.setError("Please enter a group description");
+            mGroupDescription.setError("Please enter a group description");
             return false;
-        } else if (groupDescriptionInput.length() > 50) {
-            mGroupName.setError("Description too long");
+        } else if (groupDescriptionInput.length() > 100) {
+            mGroupDescription.setError("Description is too long");
             return false;
         } else {
-            mGroupName.setError(null);
+            mGroupDescription.setError(null);
             return true;
         }
     }
@@ -304,6 +337,7 @@ public class CreateGroupFragment extends Fragment {
                         Log.w(TAG, "Error updating document", e);
                     }
                 });
-    }
 
+        mProgressLayout.setVisibility(View.GONE);
+    }
 }

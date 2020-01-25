@@ -1,17 +1,20 @@
 package com.example.mapp_assignment.adapters;
 
-import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions;
+import com.example.mapp_assignment.GroupDetailFragment;
 import com.example.mapp_assignment.R;
 
 import java.util.ArrayList;
@@ -23,12 +26,14 @@ public class YourGroupRecyclerAdapter extends RecyclerView.Adapter<YourGroupRecy
     //vars
     private ArrayList<String> mNames = new ArrayList<>();
     private ArrayList<String> mImageUrls = new ArrayList<>();
-    private Context mContext;
+    private ArrayList<String> mGroupId = new ArrayList<>();
+    private FragmentActivity mFragmentActivity;
 
-    public YourGroupRecyclerAdapter(Context context, ArrayList<String> names, ArrayList<String> imageUrls) {
+    public YourGroupRecyclerAdapter(FragmentActivity fragmentActivity, ArrayList<String> names, ArrayList<String> imageUrls, ArrayList<String> id) {
         mNames = names;
         mImageUrls = imageUrls;
-        mContext = context;
+        mFragmentActivity = fragmentActivity;
+        mGroupId = id;
     }
 
     @Override
@@ -41,18 +46,42 @@ public class YourGroupRecyclerAdapter extends RecyclerView.Adapter<YourGroupRecy
     public void onBindViewHolder(ViewHolder holder, final int position) {
         Log.d(TAG, "onBindViewHolder: called.");
 
-        Glide.with(mContext)
+        Glide.with(mFragmentActivity)
                 .asBitmap()
                 .load(mImageUrls.get(position))
+                .transition(BitmapTransitionOptions.withCrossFade())
                 .into(holder.image);
 
         holder.name.setText(mNames.get(position));
 
+//        holder.image.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Log.d(TAG, "onClick: clicked on an image: " + mNames.get(position));
+//                Toast.makeText(mFragmentActivity, mNames.get(position), Toast.LENGTH_SHORT).show();
+//
+////                Fragment selectedFragment = new GroupDetailFragment();
+////                mContext.getSupportFragmentManager().beginTransaction()
+////                        .replace(R.id.fragment_container, selectedFragment, "findThisFragment")
+////                        .addToBackStack(null)
+////                        .commit();
+//            }
+//        });
+
         holder.image.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Log.d(TAG, "onClick: clicked on an image: " + mNames.get(position));
-                Toast.makeText(mContext, mNames.get(position), Toast.LENGTH_SHORT).show();
+            public void onClick(View v) {
+
+                Bundle data = new Bundle();
+                data.putString("groupId", mGroupId.get(position));
+
+                Fragment selectedFragment = new GroupDetailFragment();
+                selectedFragment.setArguments(data);
+                mFragmentActivity.getSupportFragmentManager().beginTransaction()
+                        .setCustomAnimations(R.anim.slide_in_right,R.anim.slide_out_left,R.anim.slide_in_left,R.anim.slide_out_right)
+                        .replace(R.id.fragment_container, selectedFragment, "findThisFragment")
+                        .addToBackStack(null)
+                        .commit();
             }
         });
     }
