@@ -24,6 +24,8 @@ import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.example.mapp_assignment.models.Group;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -55,7 +57,7 @@ public class GroupDetailFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_group_details,container, false);
+        rootView = inflater.inflate(R.layout.fragment_group_details, container, false);
 
         groupId = getArguments().getString("groupId");
 
@@ -66,9 +68,9 @@ public class GroupDetailFragment extends Fragment {
         mButtonJoinGroup = rootView.findViewById(R.id.button_join_group);
 
         Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
-        ((MainActivity)getActivity()).setSupportActionBar(toolbar);
-        ((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ((MainActivity)getActivity()).getSupportActionBar().setTitle("");
+        ((MainActivity) getActivity()).setSupportActionBar(toolbar);
+        ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle("");
         setHasOptionsMenu(true);
 
         initFirebaseConnection();
@@ -80,9 +82,9 @@ public class GroupDetailFragment extends Fragment {
     }
 
     @Override
-    public  void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.group_detail_menu, menu);
-        super.onCreateOptionsMenu(menu,inflater);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
@@ -95,6 +97,7 @@ public class GroupDetailFragment extends Fragment {
 //                Intent intent = new Intent(getContext(), LoginActivity.class);
 //                startActivity(intent);
                 userLeaveGroup();
+                mButtonJoinGroup.setVisibility(View.VISIBLE);
                 Toast.makeText(getContext(), "Leave group", Toast.LENGTH_SHORT).show();
                 return true;
             case android.R.id.home:
@@ -114,14 +117,14 @@ public class GroupDetailFragment extends Fragment {
         userId = fAuth.getCurrentUser().getUid();
     }
 
-    private void initOnClickListener(){
+    private void initOnClickListener() {
         //GO to create event
         mButtonCreateEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Fragment selectedFragment = new CreateEventFragment();
                 getActivity().getSupportFragmentManager().beginTransaction()
-                        .setCustomAnimations(R.anim.slide_in_down,R.anim.fade_out,R.anim.fade_in,R.anim.fade_out)
+                        .setCustomAnimations(R.anim.slide_in_down, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out)
                         .replace(R.id.fragment_container, selectedFragment, "findThisFragment")
                         .addToBackStack(null)
                         .commit();
@@ -133,39 +136,34 @@ public class GroupDetailFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 userJoinGroup();
-                Fragment selectedFragment = new GroupFragment();
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .setCustomAnimations(R.anim.slide_in_down,R.anim.fade_out,R.anim.fade_in,R.anim.fade_out)
-                        .replace(R.id.fragment_container, selectedFragment, "findThisFragment")
-                        .addToBackStack(null)
-                        .commit();
             }
         });
     }
 
-    private void userLeaveGroup(){
-        fStore.collection("groups").document(groupId)
+    private void userLeaveGroup() {
+        fStore.collection("groups")
+                .document(groupId)
                 .update(
                         "membersId", FieldValue.arrayRemove(userId),
                         "groupMemberCount", FieldValue.increment(-1)
                 );
-
     }
 
-    private void userJoinGroup(){
+    private void userJoinGroup() {
         fStore.collection("groups").document(groupId)
                 .update(
                         "membersId", FieldValue.arrayUnion(userId),
                         "groupMemberCount", FieldValue.increment(1)
                 );
+        mButtonJoinGroup.setVisibility(View.GONE);
     }
 
-    private void loadGroupData(){
+    private void loadGroupData() {
         fStore.collection("groups").document(groupId)
                 .addSnapshotListener(new EventListener<DocumentSnapshot>() {
                     @Override
                     public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                        if(e !=null){
+                        if (e != null) {
                             Log.w(TAG, "Listen failed.", e);
                             return;
                         }
@@ -173,11 +171,12 @@ public class GroupDetailFragment extends Fragment {
                         if (documentSnapshot != null && documentSnapshot.exists()) {
                             Group group = documentSnapshot.toObject(Group.class);
                             // Show Create Event button when user is owner of group
-                            if(group.getCreatorId().equals(userId)){
+                            if (group.getCreatorId().equals(userId)) {
                                 mButtonCreateEvent.show();
-                            };
+                            }
+                            ;
                             // Show Join Group button if not a member of group
-                            if(!group.getMembersId().contains(userId)){
+                            if (!group.getMembersId().contains(userId)) {
                                 mButtonJoinGroup.setVisibility(View.VISIBLE);
                             }
 
