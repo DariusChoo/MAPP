@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -21,6 +22,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mapp_assignment.adapters.HorizontalRecyclerViewAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
@@ -32,6 +35,7 @@ public class ExploreFragment extends Fragment {
     Toolbar tb;
     ScrollView scrollView;
     GridView gridview;
+    ImageButton searchbar;
     String[] categoryNames = {"Outdoors","Gaming","Technology","Music","Learning","Art"};
     int[] categoryIcon = {R.drawable.mountainco,R.drawable.gamecontrollerico,R.drawable.techico,R.drawable.musicico,R.drawable.learningico,R.drawable.artico};
 
@@ -39,6 +43,8 @@ public class ExploreFragment extends Fragment {
     private ArrayList<String> mNames = new ArrayList<>();
     private ArrayList<String> mImageUrls = new ArrayList<>();
 
+    FirebaseAuth fAuth;
+    FirebaseFirestore fStore;
 
     @Nullable
     @Override
@@ -50,13 +56,27 @@ public class ExploreFragment extends Fragment {
         scrollView.smoothScrollTo(0, 0);
 
 
+        // Initialzie Firebase Connection;
+        initFirebaseConnection();
         // Display Popular Events through RecyclerView
         getImages();
         Log.d("Explore Images","Received");
         // Initialize GridView
         initGridView();
+        // Initialize OnClick
+        initOnClickListener();
 
-//        On Click for Category
+        return rootView;
+    }
+
+    private void initFirebaseConnection() {
+        // Get instance of firebase authentication
+        fAuth = FirebaseAuth.getInstance();
+        // Get instance of firebase firestore
+        fStore = FirebaseFirestore.getInstance();
+    }
+
+    private void initOnClickListener(){
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
@@ -68,8 +88,6 @@ public class ExploreFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
-        return rootView;
     }
 
     private void getImages(){

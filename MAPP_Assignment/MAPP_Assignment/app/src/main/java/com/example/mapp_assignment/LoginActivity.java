@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -23,7 +24,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private static final String TAG = "LoginActivity";
 
     FirebaseAuth fAuth;
-    EditText mEmail, mPassword;
+    TextInputLayout mEmail, mPassword;
     ProgressBar mProgressBar;
 
 
@@ -65,8 +66,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void loginUser() {
         showProgressBar();
 
-        String email = mEmail.getText().toString().trim();
-        String password = mPassword.getText().toString().trim();
+        String email = mEmail.getEditText().getText().toString().trim();
+        String password = mPassword.getEditText().getText().toString().trim();
 
         if (TextUtils.isEmpty(email)) {
             mEmail.setError("Email is required");

@@ -14,17 +14,26 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mapp_assignment.adapters.YourGroupRecyclerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
 public class GroupFragment extends Fragment{
 
     private static final String TAG = "GroupFragment";
-    View rootView;
+    private View rootView;
+    private TextView textView;
+
+    FirebaseAuth fAuth;
+    FirebaseFirestore fStore;
 
     // temp vars, insert firebase values to this arrayList
     private ArrayList<String> mNames = new ArrayList<>();
     private ArrayList<String> mImageUrls = new ArrayList<>();
+
+    private final String defaultProfileImageUrl = "https://firebasestorage.googleapis.com/v0/b/crux-23cf1.appspot.com/o/default%2Fdefault_proifle_img.jpg?alt=media&token=9e65875e-c926-402f-8cbe-2ef69cc50ce5";
+
 
     @Nullable
     @Override
@@ -32,10 +41,26 @@ public class GroupFragment extends Fragment{
 
         rootView = inflater.inflate(R.layout.fragment_group, container, false);
 
-        TextView textView = (TextView) rootView.findViewById(R.id.text_view_create_group);
+        textView = (TextView) rootView.findViewById(R.id.text_view_create_group);
 //        textView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_add_black_24dp, 0, 0, 0);
 
-       //Create group button
+
+        // Display Popular Events through RecyclerView
+        getImages();
+        // Initialize OnclickListener in this activty
+        initOnclickLister();
+
+        return rootView;
+    }
+    private void initFirebaseConnection() {
+        // Get instance of firebase authentication
+        fAuth = FirebaseAuth.getInstance();
+        // Get instance of firebase firestore
+        fStore = FirebaseFirestore.getInstance();
+    }
+
+    private void initOnclickLister(){
+        //Create group button
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,10 +71,6 @@ public class GroupFragment extends Fragment{
                         .commit();
             }
         });
-        // Display Popular Events through RecyclerView
-        getImages();
-
-        return rootView;
     }
 
 
@@ -60,7 +81,7 @@ public class GroupFragment extends Fragment{
         mImageUrls.add("https://dotesports-media.nyc3.cdn.digitaloceanspaces.com/wp-content/uploads/2019/09/12195522/league-of-legends.jpg");
         mNames.add("League of Legend group");
 
-        mImageUrls.add("https://i.redd.it/8had39fy2m741.jpg");
+        mImageUrls.add(defaultProfileImageUrl);
         mNames.add("Cat gang lovers");
 
         mImageUrls.add("https://i.redd.it/qn7f9oqu7o501.jpg");

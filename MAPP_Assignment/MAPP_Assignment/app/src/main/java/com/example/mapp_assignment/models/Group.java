@@ -1,14 +1,52 @@
 package com.example.mapp_assignment.models;
 
-import com.google.firebase.firestore.CollectionReference;
-
-import java.util.Collection;
 
 public class Group {
     private String groupName;
+    private String groupDescription;
     private String imageURL;
     private String creatorId;
+    private String category;
+    private String interest;
     private int groupMemberCount;
+
+    public Group() {
+    }
+
+
+    public Group(String groupName, String groupDescription, String imageURL, String creatorId, String category, String interest, int groupMemberCount) {
+        this.groupName = groupName;
+        this.groupDescription = groupDescription;
+        this.imageURL = imageURL;
+        this.creatorId = creatorId;
+        this.category = category;
+        this.interest = interest;
+        this.groupMemberCount = groupMemberCount;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getInterest() {
+        return interest;
+    }
+
+    public void setInterest(String interest) {
+        this.interest = interest;
+    }
+
+    public String getGroupDescription() {
+        return groupDescription;
+    }
+
+    public void setGroupDescription(String groupDescription) {
+        this.groupDescription = groupDescription;
+    }
 
     public String getGroupName() {
         return groupName;
