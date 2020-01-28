@@ -1,15 +1,216 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/holo_purple">
+    android:layout_height="match_parent">
 
 
-    <TextView
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-        android:gravity="center_horizontal|center_vertical"
+    <RelativeLayout
+        android:id="@+id/profile_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Profile Fragment" />
+        android:layout_height="wrap_content"
+        android:background="#113f67">
+
+
+        <menu xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_height="57dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="1dp"
+            android:layout_marginBottom="10dp"
+            >
+
+            <Item
+                android:id="@+id/settingButton"
+                android:layout_width="56dp"
+                android:icon="@drawable/ic_settings"
+                app:showAsAction="ifRoom"
+                android:background="#113f67"
+                />
+
+            <Item
+                android:id="@+id/accountsettingButton"
+                android:icon="@drawable/ic_settings"
+                android:title="Account Settings"
+                app:showAsAction="never"
+                />
+            <Item
+                android:id="@+id/aboutcruxButton"
+                android:icon="@drawable/ic_settings"
+                android:title="About Crux"
+                app:showAsAction="never"
+                />
+            <Item
+                android:id="@+id/logoutButton"
+                android:icon="@drawable/ic_settings"
+                android:title="Log out"
+                app:showAsAction="never"
+                />
+
+        </menu>
+
+
+
+
+        <ImageView
+            android:layout_marginTop="50dp"
+            android:id="@+id/profileImages"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:srcCompat="@drawable/ic_profile_black_24dp" />
+
+        <TextView
+            android:id="@+id/profileName"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/profileImages"
+            android:textSize="48dp"
+            android:textColor="#EEE"
+            android:text="Lim Wei" />
+
+        <TextView
+            android:id="@+id/profileCountry"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/profileName"
+            android:textColor="#EEE"
+            android:text="Singapore" />
+
+        <TextView
+            android:id="@+id/profileGroup"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="100dp"
+            android:layout_marginBottom="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/profileCountry"
+            android:textSize="20dp"
+            android:textColor="#EEE"
+            android:text="Group" />
+
+        <TextView
+            android:id="@+id/profileEvent"
+            android:layout_marginLeft="75dp"
+            android:layout_marginBottom="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/profileCountry"
+            android:textSize="20dp"
+            android:textColor="#EEE"
+            android:text="Event Going" />
+
+
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/profileGroup_layout"
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/profile_layout">
+
+        <TextView
+            android:id="@+id/groupList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/proxima_alt_bold"
+            android:textColor="#000"
+            android:textSize="20dp"
+            android:text="Group" />
+
+
+        <TextView
+            android:id="@+id/groupSeeAll"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/proxima_regular"
+            android:textSize="15dp"
+            android:textColor="#113f67"
+            android:linksClickable="true"
+            android:text="See All >" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/profileEvent_layout"
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/profileGroup_layout">
+
+        <TextView
+            android:id="@+id/eventList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/proxima_alt_bold"
+            android:textSize="20dp"
+            android:textColor="#000"
+            android:text="Event" />
+
+        <TextView
+            android:id="@+id/eventSeeAll"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/proxima_regular"
+            android:textSize="15dp"
+            android:textColor="#113f67"
+            android:linksClickable="true"
+            android:text="See All >" />
+
+        <RelativeLayout
+            android:id="@+id/profileEventGoing_layout"
+            android:layout_margin="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/eventSeeAll">
+
+            <TextView
+                android:id="@+id/eventGoing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/proxima_alt_bold"
+                android:textSize="10dp"
+                android:textColor="#000"
+                android:text="Going :" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/profileEventJoined_layout"
+            android:layout_margin="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/profileEventGoing_layout">
+
+            <TextView
+                android:id="@+id/eventJoined"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/proxima_alt_bold"
+                android:textSize="10dp"
+                android:textColor="#000"
+                android:text="Joined :" />
+
+
+        </RelativeLayout>
+
+
+
+    </RelativeLayout>
 
 </RelativeLayout>
