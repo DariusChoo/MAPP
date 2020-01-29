@@ -1,6 +1,8 @@
 package com.example.mapp_assignment.models;
 
 
+import java.util.ArrayList;
+
 public class Group {
     private String groupName;
     private String groupDescription;
@@ -9,12 +11,13 @@ public class Group {
     private String category;
     private String interest;
     private int groupMemberCount;
+    private ArrayList<String> membersId;
 
     public Group() {
     }
 
 
-    public Group(String groupName, String groupDescription, String imageURL, String creatorId, String category, String interest, int groupMemberCount) {
+    public Group(String groupName, String groupDescription, String imageURL, String creatorId, String category, String interest, int groupMemberCount, ArrayList<String>membersId) {
         this.groupName = groupName;
         this.groupDescription = groupDescription;
         this.imageURL = imageURL;
@@ -22,6 +25,7 @@ public class Group {
         this.category = category;
         this.interest = interest;
         this.groupMemberCount = groupMemberCount;
+        this.membersId = membersId;
     }
 
     public String getCategory() {
@@ -78,6 +82,14 @@ public class Group {
 
     public void setGroupMemberCount(int groupMemberCount) {
         this.groupMemberCount = groupMemberCount;
+    }
+
+    public ArrayList<String> getMembersId() {
+        return membersId;
+    }
+
+    public void setMembersId(ArrayList<String> membersId) {
+        this.membersId = membersId;
     }
 
 }
