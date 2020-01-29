@@ -44,6 +44,8 @@
 
 <!--Back button-->
     <ImageButton
+        android:id="@+id/backCat"
+        android:onClick="onClick"
         android:layout_width="55dp"
         android:layout_height="55dp"
         android:scaleType="fitXY"
@@ -53,6 +55,8 @@
 <!--    Search Button-->
 
     <ImageButton
+
+
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_alignParentStart="false"
