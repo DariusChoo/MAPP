@@ -60,6 +60,7 @@ public class ExploreFragment extends Fragment {
         initFirebaseConnection();
         // Display Popular Events through RecyclerView
         getImages();
+        Log.d("Explore Images","Received");
         // Initialize GridView
         initGridView();
         // Initialize OnClick
@@ -79,6 +80,7 @@ public class ExploreFragment extends Fragment {
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
+                Log.d("Explore Frag Cat","Testing On Click: ");
                 Intent intent = new Intent(getActivity().getApplicationContext(), ExploreCategoryActivity.class);
                 intent.putExtra("name", categoryNames[i]);
                 intent.putExtra("images", categoryIcon[i]);

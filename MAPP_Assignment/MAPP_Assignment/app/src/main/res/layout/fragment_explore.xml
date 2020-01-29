@@ -109,7 +109,7 @@
                     android:textColor="#000"
                     android:textSize="20sp" />
 
-
+<!--                GridView for category-->
                 <GridView
                     android:id="@+id/gridview"
                     android:layout_width="match_parent"
