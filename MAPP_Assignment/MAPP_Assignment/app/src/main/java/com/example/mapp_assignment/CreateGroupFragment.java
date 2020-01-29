@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -18,7 +17,6 @@ import android.webkit.MimeTypeMap;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -43,9 +41,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.FileNotFoundException;
-import java.sql.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -107,11 +103,11 @@ public class CreateGroupFragment extends Fragment {
         return rootView;
     }
 
-//    @Override
-//    public  void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
-//        inflater.inflate(R.menu.group_detail_menu, menu);
-//        super.onCreateOptionsMenu(menu,inflater);
-//    }
+    @Override
+    public  void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
+        inflater.inflate(R.menu.group_detail_menu, menu);
+        super.onCreateOptionsMenu(menu,inflater);
+    }
 //
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -246,7 +242,6 @@ public class CreateGroupFragment extends Fragment {
         newGroup.setInterest(groupInterestInput);
         newGroup.setMembersId(memId);
 
-
         // Add group object to collection
         CollectionReference grpCollection = fStore.collection("groups");
         grpCollection.add(newGroup)
@@ -267,6 +262,7 @@ public class CreateGroupFragment extends Fragment {
 
                 });
     }
+
     // Upload group image to Firebase storage
     private void uploadGroupImage(final String groupId) {
         Log.d(TAG, "uploadGroupImage: IN");

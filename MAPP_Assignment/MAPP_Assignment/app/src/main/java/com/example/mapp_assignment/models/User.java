@@ -2,6 +2,8 @@ package com.example.mapp_assignment.models;
 
 import com.google.firebase.firestore.CollectionReference;
 
+import java.util.ArrayList;
+
 public class User {
 
 
@@ -11,17 +13,39 @@ public class User {
     private String userId;
     private int groupCount;
     private int eventCount;
+    private ArrayList<String> groupsId;
+    private ArrayList<String> eventsId;
 
     public User(){
 
     }
 
 
-    public User(String userName, String email, String imageURL, String userId) {
+    public User(String userName, String email, String imageURL, String userId, int groupCount, int eventCount ,ArrayList<String> groupsId, ArrayList<String> eventsId) {
         this.userName = userName;
         this.email = email;
         this.imageURL = imageURL;
         this.userId = userId;
+        this.groupCount = groupCount;
+        this.eventCount = eventCount;
+        this.groupsId = groupsId;
+        this.eventsId = eventsId;
+    }
+
+    public ArrayList<String> getGroupsId() {
+        return groupsId;
+    }
+
+    public void setGroupsId(ArrayList<String> groupsId) {
+        this.groupsId = groupsId;
+    }
+
+    public ArrayList<String> getEventsId() {
+        return eventsId;
+    }
+
+    public void setEventsId(ArrayList<String> eventsId) {
+        this.eventsId = eventsId;
     }
 
     public String getUserName() { return userName; }

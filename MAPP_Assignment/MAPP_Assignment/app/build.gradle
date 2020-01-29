@@ -53,4 +53,5 @@ dependencies {
 
     // Circle Image View
     implementation 'de.hdodenhof:circleimageview:3.0.1'
+    implementation 'com.mikhaellopez:circularimageview:4.1.1'
 }

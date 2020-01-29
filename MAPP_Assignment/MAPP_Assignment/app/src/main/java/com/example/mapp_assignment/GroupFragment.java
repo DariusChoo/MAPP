@@ -25,6 +25,7 @@ import com.example.mapp_assignment.adapters.YourGroupRecyclerAdapter;
 import com.example.mapp_assignment.models.Group;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.api.LogDescriptor;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
@@ -44,6 +45,7 @@ public class GroupFragment extends Fragment {
     private TextView mNoGroupTextView;
     private TextView mNoGroupGoExplore;
     private ProgressBar mProgressCircle;
+    private BottomNavigationView mBtmView;
 
     private String userId;
     FirebaseAuth fAuth;
@@ -66,6 +68,7 @@ public class GroupFragment extends Fragment {
         mCreateGroup = (TextView) rootView.findViewById(R.id.text_view_create_group);
         mNoGroupTextView = rootView.findViewById(R.id.text_view_no_group);
         mNoGroupGoExplore = rootView.findViewById(R.id.text_view_go_explore);
+        mBtmView = getActivity().findViewById(R.id.bottom_navigation);
 
         // Initialize Firebase Connection
         initFirebaseConnection();
@@ -117,6 +120,8 @@ public class GroupFragment extends Fragment {
                         .replace(R.id.fragment_container, selectedFragment, "findThisFragment")
                         .addToBackStack(null)
                         .commit();
+                // Highlight explore menu
+                mBtmView.getMenu().findItem(R.id.nav_explore).setChecked(true);
             }
         });
 
@@ -142,21 +147,27 @@ public class GroupFragment extends Fragment {
                         mImageUrls.clear();
                         mGroupId.clear();
 
-                        for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
-                            Log.d(TAG, "document size " + queryDocumentSnapshots.size());
-                            if (queryDocumentSnapshots.size() == 0) {
-                                // Appear default view
-                                mNoGroupTextView.setVisibility(View.VISIBLE);
-                                mNoGroupGoExplore.setVisibility(View.VISIBLE);
-                            } else {
-                                Log.d(TAG, document.getId() + " => " + document.getData());
-                                Group group = document.toObject(Group.class);
-                                mImageUrls.add(group.getImageURL());
-                                mNames.add(group.getGroupName());
-                                mGroupId.add(document.getId());
+                        Log.d(TAG, "SIZE OF GROUP " + queryDocumentSnapshots.size());
+                        
+                        if(queryDocumentSnapshots.size() == 0){
+                            Log.d(TAG, "onEvent: Hello");
+                            // Appear default view
+                            mNoGroupTextView.setVisibility(View.VISIBLE);
+                            mNoGroupGoExplore.setVisibility(View.VISIBLE);
+                        }else{
+                            for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                                Log.d(TAG, "document size " + queryDocumentSnapshots.size());
+                                    Log.d(TAG, document.getId() + " => " + document.getData());
+                                    Group group = document.toObject(Group.class);
+                                    mImageUrls.add(group.getImageURL());
+                                    mNames.add(group.getGroupName());
+                                    mGroupId.add(document.getId());
                             }
+                            initRecyclerView();
+                            
                         }
-                        initRecyclerView();
+
+
                     }
                 });
     }

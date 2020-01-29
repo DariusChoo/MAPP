@@ -25,6 +25,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import com.example.mapp_assignment.models.*;
 
+import java.util.ArrayList;
+
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "Register Activity";
@@ -115,6 +117,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
                     DocumentReference newUserDocRef = fStore.collection("user").document(userId);
 
+                    ArrayList<String> groupsId = new ArrayList<>();
+                    ArrayList<String> eventId = new ArrayList<>();
+
                     User user = new User();
                     user.setUserName(userName);
                     user.setEmail(email);
@@ -122,6 +127,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     user.setUserId(userId);
                     user.setEventCount(0);
                     user.setGroupCount(0);
+                    user.setGroupsId(groupsId);
+                    user.setEventsId(eventId);
 
                     newUserDocRef.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
 
