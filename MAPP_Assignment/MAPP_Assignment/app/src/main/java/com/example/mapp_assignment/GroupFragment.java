@@ -89,7 +89,7 @@ public class GroupFragment extends Fragment {
     }
 
     private void initRecyclerView() {
-        Log.d(TAG, "initRecyclerView: init recyclerview");
+        Log.d(TAG, "initRecyclerView:");
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         RecyclerView recyclerView = rootView.findViewById(R.id.recycler_view);
@@ -128,8 +128,6 @@ public class GroupFragment extends Fragment {
     }
 
     private void loadGroupData() {
-        Log.d(TAG, "initImageBitmaps: preparing bitmaps.");
-
         // Get User id
         String userId = fAuth.getCurrentUser().getUid();
         // Query group data
@@ -164,7 +162,6 @@ public class GroupFragment extends Fragment {
                                     mGroupId.add(document.getId());
                             }
                             initRecyclerView();
-                            
                         }
 
 

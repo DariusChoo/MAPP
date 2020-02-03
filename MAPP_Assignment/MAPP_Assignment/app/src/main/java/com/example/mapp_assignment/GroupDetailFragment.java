@@ -147,6 +147,13 @@ public class GroupDetailFragment extends Fragment {
                         "membersId", FieldValue.arrayRemove(userId),
                         "groupMemberCount", FieldValue.increment(-1)
                 );
+
+        fStore.collection("user")
+                .document(userId)
+                .update(
+                        "groupsId", FieldValue.arrayRemove(groupId),
+                        "groupCount", FieldValue.increment(-1)
+                );
     }
 
     private void userJoinGroup() {
@@ -155,6 +162,13 @@ public class GroupDetailFragment extends Fragment {
                         "membersId", FieldValue.arrayUnion(userId),
                         "groupMemberCount", FieldValue.increment(1)
                 );
+
+        fStore.collection("user").document(userId)
+                .update(
+                        "groupsId", FieldValue.arrayUnion(groupId),
+                        "groupCount", FieldValue.increment(1)
+                );
+
         mButtonJoinGroup.setVisibility(View.GONE);
     }
 
