@@ -72,9 +72,49 @@ public class ChatFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_chat, container, false);
         initFirebaseConnection();
 
-        Log.d("CHAT FRAGMENT", "INIT FIREBASE");
-        getUserGroups();
+        mChats = new ArrayList<>();
 
+        Log.d("CHAT FRAGMENT", "INIT FIREBASE");
+        getChatData();
+        //readChats();
+
+
+        //Check if there is item in recycler view
+        int count = 0;
+        if (chatAdapter != null) {
+            count = chatAdapter.getItemCount();
+        } else {
+            count = 1;
+        }
+        Log.d("CHAT RECYCLER VIEW COUNT: ", Integer.toString(count));
+
+        recyclerView = view.findViewById(R.id.recycler_view);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        mChats = new ArrayList<>();
+
+
+
+
+        //Check if there is item in recycler view
+        int count = 0;
+        if (chatAdapter != null) {
+            count = chatAdapter.getItemCount();
+        } else {
+            count = 100000;
+        }
+        Log.d("CHAT RECYCLER VIEW COUNT: ", Integer.toString(count));
+
+        recyclerView = view.findViewById(R.id.recycler_view);
+        //recyclerView.setHasFixedSize(true);
+        //recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+//
+
+
+
+        return view;
+=======
         return view;
     }
 
@@ -92,6 +132,7 @@ public class ChatFragment extends Fragment {
         fAuth = FirebaseAuth.getInstance();
         // Get instance of firebase firestore
         fStore = FirebaseFirestore.getInstance();
+>>>>>>> a365d1a832d4c7085cfa3164734edb4998c8c248
     }
 
     private void getUserGroups() {
@@ -114,21 +155,66 @@ public class ChatFragment extends Fragment {
                         Log.d(TAG, "onSuccess: " + documentSnapshot.getData());
                         User user = documentSnapshot.toObject(User.class);
 
+
                         for(int i=0;i<user.getGroupsId().size();i++){
                             Log.d(TAG, "onSuccess: group id: " +  user.getGroupsId().get(i));
-                            mGroupId.add(user.getGroupsId().get(i));
                         }
-                        Log.d(TAG, "onSuccess: before getchat");
-                        getChatData();
                     }
                 });
+
+        Log.d(TAG, "readChats: "+user.getUserName());
     }
 
-    private void getChatData() {
-        //        // Query group data
-        Log.d(TAG, "getChatData: " + mGroupId.get(0));
+
+    private void readChats() {
+
+        //Realtime Database
+//        final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+//        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
+
+
+        String userId = fAuth.getCurrentUser().getUid();
+        Log.d(TAG, "readChats: " + userId);
+
+        //Getting chats from userid
+        DocumentReference docRef = fStore.collection("user").document(userId);
+        Log.d(TAG, "readChats: PASSED DOCUMENT REFERENCE");
+
+
+        docRef.get()
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d(TAG, "onFailure: DOCREF GETTING CHATS FROM USERID " + e);
+                    }
+                }).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                Log.d(TAG, "onSuccess: ENTERED ON SUCCESS");
+
+                User user = documentSnapshot.toObject(User.class);
+
+                Log.d("USER GROUP SIZE", "" + user.getGroupsId().size());
+
+                //LOOP THROUGH GROUPSID
+                for (int i = 0; i < user.getGroupsId().size(); i++) {
+                    mGroupId.add(user.getGroupsId().get(i));
+                }
+            }
+        }).addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                Log.d(TAG, "onComplete: COMPLETED LISTENER");
+            }
+        });
+
+        Log.d(TAG, "readChats: GOT CHATS FROM USERID");
+        Log.d(TAG, "readChats: "+user.getUserName());
+
+
+        // Query group data
         fStore.collection("chats")
-                .whereIn("grpID", mGroupId)
+                .whereIn("groupid", mGroupId)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
 
                     @Override
@@ -138,21 +224,30 @@ public class ChatFragment extends Fragment {
                             return;
                         }
 
+//                        mGroupNames.clear();
+//                        mImageUrls.clear();
+//                        mGroupId.clear();
                         mChats.clear();
-                        Log.d(TAG, "onEvent: size" + queryDocumentSnapshots.size() );
+
                         for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
                             Log.d(TAG, "document size " + queryDocumentSnapshots.size());
                             if (queryDocumentSnapshots.size() == 0) {
                                 // Appear default view
                             } else {
-                                Log.d(TAG, "onEvent: Pass here");
                                 Log.d(TAG, document.getId() + " => " + document.getData());
                                 Chat chat = document.toObject(Chat.class);
                                 mChats.add(chat);
+//                                mImageUrls.add(chat.getImageUrl());
+//                                mGroupNames.add(chat.getGrpName());
+//                                mGroupId.add(chat.getGrpID());
+                                // mLastMessage.add(chat.getLastMsg());
                             }
                         }
-                        initRecyclerView();
+                        //initRecyclerView();
                     }
                 });
+
     }
+
 }
+
