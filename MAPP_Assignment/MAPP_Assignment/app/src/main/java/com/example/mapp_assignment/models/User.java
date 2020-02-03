@@ -31,33 +31,6 @@ import java.util.ArrayList;
         this.eventsId = eventsId;
     }
 
-    public ArrayList<String> getGroupsId() {
-        return groupsId;
-    }
-
-    public void setGroupsId(ArrayList<String> groupsId) {
-        this.groupsId = groupsId;
-    }
-
-    public ArrayList<String> getEventsId() {
-        return eventsId;
-    }
-
-    public void setEventsId(ArrayList<String> eventsId) {
-        this.eventsId = eventsId;
-    }
-
-        public User(String userName, String email, String imageURL, String userId, int groupCount, int eventCount ,ArrayList<String> groupsId, ArrayList<String> eventsId) {
-            this.userName = userName;
-            this.email = email;
-            this.imageURL = imageURL;
-            this.userId = userId;
-            this.groupCount = groupCount;
-            this.eventCount = eventCount;
-            this.groupsId = groupsId;
-            this.eventsId = eventsId;
-        }
-
         public ArrayList<String> getGroupsId() {
             return groupsId;
         }
