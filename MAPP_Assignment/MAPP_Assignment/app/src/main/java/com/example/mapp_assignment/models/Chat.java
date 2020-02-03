@@ -1,7 +1,12 @@
 package com.example.mapp_assignment.models;
 
 
+import android.util.Log;
+
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Chat {
 //    private String userName;
@@ -16,7 +21,8 @@ public class Chat {
     private String grpName;
     private String imageurl;
     private String lastMsg;
-    private Timestamp timestamp;
+    private Date timestamp;
+
 
     public Chat(){
 
@@ -71,11 +77,11 @@ public class Chat {
         this.lastMsg = lastMsg;
     }
 
-    public Timestamp getTimestamp() {
+    public Date getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Timestamp timestamp) {
-        this.timestamp = timestamp;
+    public void setTimestamp(Date timestamp) {
+            this.timestamp = timestamp;
     }
 }
