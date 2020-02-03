@@ -124,9 +124,14 @@ public class ChatFragment extends Fragment {
         View view = inflater.inflate(R.layout.chat_user, container, false);
         initFirebaseConnection();
 
+        mChats = new ArrayList<>();
+
         Log.d("CHAT FRAGMENT", "INIT FIREBASE");
         getChatData();
         //readChats();
+
+        //Throw chatdata into adapter
+        
 
 
         //Check if there is item in recycler view
@@ -134,15 +139,15 @@ public class ChatFragment extends Fragment {
         if (chatAdapter != null) {
             count = chatAdapter.getItemCount();
         } else {
-            count = 1;
+            count = 100000;
         }
         Log.d("CHAT RECYCLER VIEW COUNT: ", Integer.toString(count));
 
         recyclerView = view.findViewById(R.id.recycler_view);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        //recyclerView.setHasFixedSize(true);
+        //recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+//
 
-        mChats = new ArrayList<>();
 
 
         return view;
@@ -168,97 +173,48 @@ public class ChatFragment extends Fragment {
                         Log.d(TAG, "onSuccess: " + documentSnapshot.getData());
                         User user = documentSnapshot.toObject(User.class);
 
-                        for(int i=0;i<user.getGroupsId().size();i++){
-                            Log.d(TAG, "onSuccess: group id: " +  user.getGroupsId().get(i));
+                        for (int i = 0; i < user.getGroupsId().size(); i++) {
+                            Log.d(TAG, "onSuccess: group id: " + user.getGroupsId().get(i));
+                            mGroupId.add(user.getGroupsId().get(i));
                         }
-                    }
-                });
 
-        Log.d(TAG, "readChats: "+user.getUserName());
-    }
+                        fStore.collection("chats")
+                                .whereIn("grpID", mGroupId)
+                                .addSnapshotListener(new EventListener<QuerySnapshot>() {
 
-
-    private void readChats() {
-
-        //Realtime Database
-//        final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-//        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
-
-
-        String userId = fAuth.getCurrentUser().getUid();
-        Log.d(TAG, "readChats: " + userId);
-
-        //Getting chats from userid
-        DocumentReference docRef = fStore.collection("user").document(userId);
-        Log.d(TAG, "readChats: PASSED DOCUMENT REFERENCE");
-
-
-        docRef.get()
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.d(TAG, "onFailure: DOCREF GETTING CHATS FROM USERID " + e);
-                    }
-                }).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                Log.d(TAG, "onSuccess: ENTERED ON SUCCESS");
-
-                User user = documentSnapshot.toObject(User.class);
-
-                Log.d("USER GROUP SIZE", "" + user.getGroupsId().size());
-
-                //LOOP THROUGH GROUPSID
-                for (int i = 0; i < user.getGroupsId().size(); i++) {
-                    mGroupId.add(user.getGroupsId().get(i));
-                }
-            }
-        }).addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                Log.d(TAG, "onComplete: COMPLETED LISTENER");
-            }
-        });
-
-        Log.d(TAG, "readChats: GOT CHATS FROM USERID");
-        Log.d(TAG, "readChats: "+user.getUserName());
-
-
-        // Query group data
-        fStore.collection("chats")
-                .whereIn("groupid", mGroupId)
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                        if (e != null) {
-                            Log.w(TAG, "Listen failed.", e);
-                            return;
-                        }
+                                    @Override
+                                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                                        if (e != null) {
+                                            Log.w(TAG, "Listen failed.", e);
+                                            return;
+                                        }
 
 //                        mGroupNames.clear();
 //                        mImageUrls.clear();
 //                        mGroupId.clear();
-                        mChats.clear();
+                                        mChats.clear();
 
-                        for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
-                            Log.d(TAG, "document size " + queryDocumentSnapshots.size());
-                            if (queryDocumentSnapshots.size() == 0) {
-                                // Appear default view
-                            } else {
-                                Log.d(TAG, document.getId() + " => " + document.getData());
-                                Chat chat = document.toObject(Chat.class);
-                                mChats.add(chat);
+                                        for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                                            Log.d(TAG, "document size " + queryDocumentSnapshots.size());
+                                            if (queryDocumentSnapshots.size() == 0) {
+                                                // Appear default view
+                                            } else {
+                                                Log.d(TAG, document.getId() + " => " + document.getData());
+                                                Chat chat = document.toObject(Chat.class);
+                                                mChats.add(chat);
 //                                mImageUrls.add(chat.getImageUrl());
 //                                mGroupNames.add(chat.getGrpName());
 //                                mGroupId.add(chat.getGrpID());
-                                // mLastMessage.add(chat.getLastMsg());
-                            }
-                        }
-                        //initRecyclerView();
+                                                // mLastMessage.add(chat.getLastMsg());
+                                            }
+                                        }
+                                        //initRecyclerView();
+                                    }
+                                });
+
+                        Log.d(TAG, "readChats: " + user.getUserName());
                     }
                 });
-
     }
-
 }
+
