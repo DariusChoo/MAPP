@@ -72,6 +72,8 @@ public class ChatFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_chat, container, false);
         initFirebaseConnection();
 
+        mChats = new ArrayList<>();
+
         Log.d("CHAT FRAGMENT", "INIT FIREBASE");
         getChatData();
         //readChats();
@@ -93,6 +95,29 @@ public class ChatFragment extends Fragment {
         mChats = new ArrayList<>();
 
 
+<<<<<<< HEAD
+        //Throw chatdata into adapter
+        
+
+
+        //Check if there is item in recycler view
+        int count = 0;
+        if (chatAdapter != null) {
+            count = chatAdapter.getItemCount();
+        } else {
+            count = 100000;
+        }
+        Log.d("CHAT RECYCLER VIEW COUNT: ", Integer.toString(count));
+
+        recyclerView = view.findViewById(R.id.recycler_view);
+        //recyclerView.setHasFixedSize(true);
+        //recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+//
+
+
+
+        return view;
+=======
         return view;
     }
 
@@ -110,6 +135,7 @@ public class ChatFragment extends Fragment {
         fAuth = FirebaseAuth.getInstance();
         // Get instance of firebase firestore
         fStore = FirebaseFirestore.getInstance();
+>>>>>>> a365d1a832d4c7085cfa3164734edb4998c8c248
     }
 
     private void getUserGroups() {
@@ -132,6 +158,48 @@ public class ChatFragment extends Fragment {
                         Log.d(TAG, "onSuccess: " + documentSnapshot.getData());
                         User user = documentSnapshot.toObject(User.class);
 
+<<<<<<< HEAD
+                        for (int i = 0; i < user.getGroupsId().size(); i++) {
+                            Log.d(TAG, "onSuccess: group id: " + user.getGroupsId().get(i));
+                            mGroupId.add(user.getGroupsId().get(i));
+                        }
+
+                        fStore.collection("chats")
+                                .whereIn("grpID", mGroupId)
+                                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+
+                                    @Override
+                                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                                        if (e != null) {
+                                            Log.w(TAG, "Listen failed.", e);
+                                            return;
+                                        }
+
+//                        mGroupNames.clear();
+//                        mImageUrls.clear();
+//                        mGroupId.clear();
+                                        mChats.clear();
+
+                                        for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                                            Log.d(TAG, "document size " + queryDocumentSnapshots.size());
+                                            if (queryDocumentSnapshots.size() == 0) {
+                                                // Appear default view
+                                            } else {
+                                                Log.d(TAG, document.getId() + " => " + document.getData());
+                                                Chat chat = document.toObject(Chat.class);
+                                                mChats.add(chat);
+//                                mImageUrls.add(chat.getImageUrl());
+//                                mGroupNames.add(chat.getGrpName());
+//                                mGroupId.add(chat.getGrpID());
+                                                // mLastMessage.add(chat.getLastMsg());
+                                            }
+                                        }
+                                        //initRecyclerView();
+                                    }
+                                });
+
+                        Log.d(TAG, "readChats: " + user.getUserName());
+=======
                         for(int i=0;i<user.getGroupsId().size();i++){
                             Log.d(TAG, "onSuccess: group id: " +  user.getGroupsId().get(i));
                         }
@@ -226,3 +294,4 @@ public class ChatFragment extends Fragment {
     }
 
 }
+
