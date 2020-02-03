@@ -67,7 +67,7 @@ public class Chat {
         return lastMsg;
     }
 
-    public void setLastMsg(String lastMsg) {
+    public void setLastMsg(int eventCount) {
         this.lastMsg = lastMsg;
     }
 
