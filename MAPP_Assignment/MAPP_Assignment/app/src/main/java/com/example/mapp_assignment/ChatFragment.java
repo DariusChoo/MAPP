@@ -75,6 +75,25 @@ public class ChatFragment extends Fragment {
         Log.d("CHAT FRAGMENT", "INIT FIREBASE");
         getUserGroups();
 
+
+        //Check if there is item in recycler view
+        int count = 0;
+        if (chatAdapter != null) {
+            count = chatAdapter.getItemCount();
+        } else {
+            count = 100000;
+        }
+        Log.d("CHAT RECYCLER VIEW COUNT: ", Integer.toString(count));
+
+        recyclerView = view.findViewById(R.id.recycler_view);
+        //recyclerView.setHasFixedSize(true);
+        //recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+//
+
+
+
+        return view;
+=======
         return view;
     }
 
@@ -92,6 +111,7 @@ public class ChatFragment extends Fragment {
         fAuth = FirebaseAuth.getInstance();
         // Get instance of firebase firestore
         fStore = FirebaseFirestore.getInstance();
+>>>>>>> a365d1a832d4c7085cfa3164734edb4998c8c248
     }
 
     private void getUserGroups() {
