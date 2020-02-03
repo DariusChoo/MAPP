@@ -1,6 +1,8 @@
 package com.example.mapp_assignment;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +13,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.mapp_assignment.adapters.YourGroupRecyclerAdapter;
 
 public class ExploreCategoryActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -36,6 +40,16 @@ public class ExploreCategoryActivity extends AppCompatActivity implements View.O
         //enable back Button
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
+
+//    private void initRecyclerView() {
+//        Log.d("initRecyclerView","init recyclerview");
+//
+//        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+//        RecyclerView recyclerView = rootView.findViewById(R.id.recycler_view);
+//        recyclerView.setLayoutManager(layoutManager);
+//        YourGroupRecyclerAdapter adapter = new YourGroupRecyclerAdapter(getActivity(), mNames, mImageUrls, mGroupId);
+//        recyclerView.setAdapter(adapter);
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
