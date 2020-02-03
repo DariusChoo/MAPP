@@ -1,6 +1,7 @@
 package com.example.mapp_assignment.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,13 +16,14 @@ import com.example.mapp_assignment.R;
 import com.example.mapp_assignment.models.Chat;
 import com.example.mapp_assignment.models.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     private Context mContext;
-    private List<Chat> mChats;
+    private ArrayList<Chat> mChats;
 
-    public ChatAdapter(Context mContext, List<Chat> mChats){
+    public ChatAdapter(Context mContext, ArrayList<Chat> mChats){
         this.mChats= mChats;
         this.mContext = mContext;
     }
@@ -37,6 +39,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Chat chat = mChats.get(position);
 
+        Log.d("adapter", "onBindViewHolder: " + chat.getGrpName());
         holder.chatname.setText(chat.getGrpName());
         if(chat.getImageUrl().equals("default"))
         {
