@@ -1,6 +1,7 @@
 package com.example.mapp_assignment.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.mapp_assignment.ChatMessageActivity;
 import com.example.mapp_assignment.R;
 import com.example.mapp_assignment.models.Chat;
 import com.example.mapp_assignment.models.User;
@@ -23,6 +25,7 @@ import java.util.List;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     private Context mContext;
+//    private User user = new User();
     private ArrayList<Chat> mChats;
 
     public ChatAdapter(Context mContext, ArrayList<Chat> mChats){
@@ -39,7 +42,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Chat chat = mChats.get(position);
+        final Chat chat = mChats.get(position);
         SimpleDateFormat inputFormat = new SimpleDateFormat("EEE MMM d HH:mm:ss zzz yyyy");
         SimpleDateFormat targetFormat = new SimpleDateFormat("E h:mm a");
         String setDate = "";
@@ -66,6 +69,17 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
                     .load(chat.getImageUrl())
                     .into(holder.chat_image);
         }
+
+        holder.itemView.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Intent intent = new Intent(mContext, ChatMessageActivity.class);
+                intent.putExtra("chatId", chat.getGrpID());
+                mContext.startActivity(intent);
+            }
+        });
     }
 
     @Override

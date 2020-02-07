@@ -35,7 +35,9 @@
         android:layout_toRightOf="@+id/chat_image"
         android:fontFamily="@font/proxima_bold"
         android:text="last message"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:textColor="#808080"
+        />
 
     <TextView
         android:id="@+id/timestamp"
@@ -48,6 +50,6 @@
         android:layout_toEndOf="@+id/chat_image"
         android:fontFamily="@font/proxima_bold"
         android:text="last message"
-        android:textSize="18sp" />
+        android:textSize="9sp" />
 
 </RelativeLayout>

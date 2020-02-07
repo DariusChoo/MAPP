@@ -1,5 +1,6 @@
 package com.example.mapp_assignment;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -60,6 +61,16 @@ public class ChatFragment extends Fragment {
     private ArrayList<String> mTimestamp = new ArrayList<>();
     //private ArrayList<String> mSender = new ArrayList();
 
+    //Passing data
+    SharedPreferences prefs;
+    public static final String MyPREFERNCES = "MyPrefs";
+    public static final String grpID = "grpKey";
+    SharedPreferences.Editor editor = prefs.edit();
+
+
+    //Writing data
+
+
 
     private final String defaultProfileImageUrl = "https://firebasestorage.googleapis.com/v0/b/crux-23cf1.appspot.com/o/default%2Fdefault_proifle_img.jpg?alt=media&token=9e65875e-c926-402f-8cbe-2ef69cc50ce5";
 
@@ -75,8 +86,38 @@ public class ChatFragment extends Fragment {
         Log.d("CHAT FRAGMENT", "INIT FIREBASE");
         getUserGroups();
 
+
         return view;
     }
+
+//    private void initOnclickLister() {
+//        //Create group button
+//        mCreateGroup.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Fragment selectedFragment = new CreateGroupFragment();
+//                getActivity().getSupportFragmentManager().beginTransaction()
+//                        .setCustomAnimations(R.anim.slide_in_down,R.anim.fade_out,R.anim.fade_in,R.anim.fade_out)
+//                        .replace(R.id.fragment_container, selectedFragment, "findThisFragment")
+//                        .addToBackStack(null)
+//                        .commit();
+//            }
+//        });
+//        // Go to explore
+//        mNoGroupGoExplore.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Fragment selectedFragment = new ExploreFragment();
+//                getActivity().getSupportFragmentManager().beginTransaction()
+//                        .replace(R.id.fragment_container, selectedFragment, "findThisFragment")
+//                        .addToBackStack(null)
+//                        .commit();
+//                // Highlight explore menu
+//                mBtmView.getMenu().findItem(R.id.nav_explore).setChecked(true);
+//            }
+//        });
+//
+//    }
 
     private void initRecyclerView(){
         Log.d(TAG, "onCreateView: " + mChats.get(0).getGrpName());
