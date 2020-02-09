@@ -259,6 +259,13 @@ public class ProfileFragment extends Fragment {
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(getContext(), LoginActivity.class));
                 return true;
+            case R.id.item_setting:
+                startActivity(new Intent(getContext(), ProfileSetting.class));
+                return true;
+            case R.id.item_about:
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(getContext(), About.class));
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
