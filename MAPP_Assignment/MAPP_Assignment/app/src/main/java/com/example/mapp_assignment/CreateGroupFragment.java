@@ -20,12 +20,15 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.mapp_assignment.models.Chat;
 import com.example.mapp_assignment.models.Group;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import androidx.annotation.NonNull;
@@ -61,13 +64,17 @@ public class CreateGroupFragment extends Fragment {
     private ImageView groupImageView;
     private Uri mImageUri;
     private View mProgressLayout;
+    private Toolbar toolbar;
     Button createGroup;
 
     private FirebaseAuth fAuth;
     private FirebaseFirestore fStore;
     private StorageReference mStorageRef;
-
+    private String userId;
+    private Group newGroup = new Group();
     private String groupImageUrl;
+
+    private BottomNavigationView btmView;
 
 
     @Nullable
@@ -85,30 +92,17 @@ public class CreateGroupFragment extends Fragment {
         mCardViewGroupImage = rootView.findViewById(R.id.card_view_group_image);
         mProgressLayout = rootView.findViewById(R.id.progress_layout);
 
-        Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
-        ((MainActivity)getActivity()).setSupportActionBar(toolbar);
-        ((MainActivity)getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close_white_24dp);
-        ((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ((MainActivity)getActivity()).getSupportActionBar().setTitle("");
-        setHasOptionsMenu(true);
-
+        btmView = getActivity().findViewById(R.id.bottom_navigation);
+        btmView.setVisibility(View.GONE);
 
         initFirebaseConnection();
+        initToolbar();
         initArrayAdapter();
         initOnClickListener();
-
-        String userId = fAuth.getCurrentUser().getUid();
-        Log.d(TAG, "USER ID C" + userId);
 
         return rootView;
     }
 
-    @Override
-    public  void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
-        inflater.inflate(R.menu.group_detail_menu, menu);
-        super.onCreateOptionsMenu(menu,inflater);
-    }
-//
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
@@ -145,6 +139,18 @@ public class CreateGroupFragment extends Fragment {
         fStore = FirebaseFirestore.getInstance();
         // Get instance of firebase cloud storage referencing group image
         mStorageRef = FirebaseStorage.getInstance().getReference("groupImage");
+        // Get user id
+        userId = fAuth.getCurrentUser().getUid();
+        Log.d(TAG, "User id" + userId);
+    }
+
+    private void initToolbar(){
+        toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
+        ((MainActivity)getActivity()).setSupportActionBar(toolbar);
+        ((MainActivity)getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close_white_24dp);
+        ((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle("");
+        setHasOptionsMenu(true);
     }
 
     private void initArrayAdapter() {
@@ -232,7 +238,7 @@ public class CreateGroupFragment extends Fragment {
 
 
         // Declare and initialize Group object
-        Group newGroup = new Group();
+        newGroup = new Group();
         newGroup.setCreatorId(userId);
         newGroup.setGroupMemberCount(1);
         newGroup.setGroupName(groupNameInput);
@@ -255,7 +261,6 @@ public class CreateGroupFragment extends Fragment {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
                         Log.d(TAG, "DocumentSnapshot written with ID" + documentReference.getId());
-
                         // Upload group image to Cloud storage
                         uploadGroupImage(documentReference.getId());
                     }
@@ -263,6 +268,13 @@ public class CreateGroupFragment extends Fragment {
                 });
     }
 
+    private void updateUser(){
+        fStore.collection("user").document(userId)
+                .update(
+                        "groupsId", FieldValue.arrayUnion(newGroup.getGroupId()),
+                        "groupCount", FieldValue.increment(1)
+                );
+    }
     // Upload group image to Firebase storage
     private void uploadGroupImage(final String groupId) {
         Log.d(TAG, "uploadGroupImage: IN");
@@ -273,13 +285,6 @@ public class CreateGroupFragment extends Fragment {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             Log.d(TAG, "uploadGroupImage: SUCCESS");
-//                            Handler handler = new Handler();
-//                            handler.postDelayed(new Runnable() {
-//                                @Override
-//                                public void run() {
-//                                    //mProgressBar.setProgress(0);
-//                                }
-//                            }, 500);
                             Toast.makeText(getContext(), "Upload successful", Toast.LENGTH_LONG).show();
                             // Get uri while listening
                             taskSnapshot.getMetadata().getReference().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -310,15 +315,53 @@ public class CreateGroupFragment extends Fragment {
             Toast.makeText(getActivity(), "Please choose an image", Toast.LENGTH_SHORT).show();
         }
     }
+
+    private void createChat() {
+        Log.d(TAG, "createChat: " + newGroup.getGroupName() + newGroup.getGroupId());
+
+        Chat newChat = new Chat();
+        newChat.setGrpID(newGroup.getGroupId());
+        newChat.setGrpName(newGroup.getGroupName());
+        newChat.setImageUrl(newGroup.getImageURL());
+        newChat.setLastMsg("");
+        newChat.setTimestamp(null);
+
+        // Add group object to collection
+        CollectionReference chatCollection = fStore.collection("chats");
+        chatCollection.document(newGroup.getGroupId())
+                .set(newChat)
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d(TAG, "onFailure: " + e.toString());
+                    }
+                })
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully written!");
+                    }
+                });
+    }
+
     // update image url of group
     private void updateGroupImageUrl(String uri, String groupId){
+        // Update group object
+        newGroup.setGroupId(groupId);
+        newGroup.setImageURL(uri);
+
         DocumentReference newGroup = fStore.collection("groups").document(groupId);
 
-        newGroup.update("imageURL", uri)
+        newGroup.update(
+                "imageURL", uri,
+                "groupId", groupId)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d(TAG, "DocumentSnapshot successfully updated!");
+                        createChat();
+                        updateUser();
+                        btmView.setVisibility(View.VISIBLE);
                         // Back to group page
                         Fragment selectedFragment = new GroupFragment();
                         getActivity().getSupportFragmentManager().beginTransaction()

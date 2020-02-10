@@ -20,12 +20,16 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
+import com.example.mapp_assignment.adapters.PagerAdapter;
 import com.example.mapp_assignment.adapters.YourGroupRecyclerAdapter;
 import com.example.mapp_assignment.models.Group;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.tabs.TabItem;
+import com.google.android.material.tabs.TabLayout;
 import com.google.api.LogDescriptor;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
@@ -46,6 +50,13 @@ public class GroupFragment extends Fragment {
     private TextView mNoGroupGoExplore;
     private ProgressBar mProgressCircle;
     private BottomNavigationView mBtmView;
+
+    private TabLayout eventTab;
+    private ViewPager viewPager;
+    private TabItem allEvent, goingEvent;
+
+    public PagerAdapter pagerAdapter;
+
 
     private String userId;
     FirebaseAuth fAuth;
@@ -70,6 +81,37 @@ public class GroupFragment extends Fragment {
         mNoGroupGoExplore = rootView.findViewById(R.id.text_view_go_explore);
         mBtmView = getActivity().findViewById(R.id.bottom_navigation);
 
+        eventTab = rootView.findViewById(R.id.event_tab);
+        allEvent = rootView.findViewById(R.id.all_events);
+        goingEvent = rootView.findViewById(R.id.going_events);
+        viewPager = rootView.findViewById(R.id.view_event);
+
+        pagerAdapter = new PagerAdapter(getFragmentManager(), eventTab.getTabCount());
+        viewPager.setAdapter(pagerAdapter);
+
+        eventTab.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+                if(tab.getPosition()==0){
+                    pagerAdapter.notifyDataSetChanged();
+                }else if(tab.getPosition() ==1){
+                    pagerAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+            }
+        });
+
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(eventTab));
+
         // Initialize Firebase Connection
         initFirebaseConnection();
         // Display Popular Events through RecyclerView
@@ -89,7 +131,7 @@ public class GroupFragment extends Fragment {
     }
 
     private void initRecyclerView() {
-        Log.d(TAG, "initRecyclerView: init recyclerview");
+        Log.d(TAG, "initRecyclerView:");
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         RecyclerView recyclerView = rootView.findViewById(R.id.recycler_view);
@@ -128,8 +170,6 @@ public class GroupFragment extends Fragment {
     }
 
     private void loadGroupData() {
-        Log.d(TAG, "initImageBitmaps: preparing bitmaps.");
-
         // Get User id
         String userId = fAuth.getCurrentUser().getUid();
         // Query group data
@@ -164,7 +204,6 @@ public class GroupFragment extends Fragment {
                                     mGroupId.add(document.getId());
                             }
                             initRecyclerView();
-                            
                         }
 
 

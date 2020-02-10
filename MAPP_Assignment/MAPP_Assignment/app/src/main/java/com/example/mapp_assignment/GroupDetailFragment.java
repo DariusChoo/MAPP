@@ -61,6 +61,7 @@ public class GroupDetailFragment extends Fragment {
 
         groupId = getArguments().getString("groupId");
 
+
         mGroupName = rootView.findViewById(R.id.text_group_name);
         mGroupImageView = rootView.findViewById(R.id.image_group);
         mGroupDescription = rootView.findViewById(R.id.text_group_description);
@@ -122,7 +123,13 @@ public class GroupDetailFragment extends Fragment {
         mButtonCreateEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Bundle data = new Bundle();
+                data.putString("groupId", groupId);
+                data.putString("groupName", mGroupName.getText().toString());
+
                 Fragment selectedFragment = new CreateEventFragment();
+                selectedFragment.setArguments(data);
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .setCustomAnimations(R.anim.slide_in_down, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out)
                         .replace(R.id.fragment_container, selectedFragment, "findThisFragment")
@@ -147,6 +154,13 @@ public class GroupDetailFragment extends Fragment {
                         "membersId", FieldValue.arrayRemove(userId),
                         "groupMemberCount", FieldValue.increment(-1)
                 );
+
+        fStore.collection("user")
+                .document(userId)
+                .update(
+                        "groupsId", FieldValue.arrayRemove(groupId),
+                        "groupCount", FieldValue.increment(-1)
+                );
     }
 
     private void userJoinGroup() {
@@ -155,6 +169,13 @@ public class GroupDetailFragment extends Fragment {
                         "membersId", FieldValue.arrayUnion(userId),
                         "groupMemberCount", FieldValue.increment(1)
                 );
+
+        fStore.collection("user").document(userId)
+                .update(
+                        "groupsId", FieldValue.arrayUnion(groupId),
+                        "groupCount", FieldValue.increment(1)
+                );
+
         mButtonJoinGroup.setVisibility(View.GONE);
     }
 
