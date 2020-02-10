@@ -24,6 +24,7 @@ import com.example.mapp_assignment.models.Chat;
 import com.example.mapp_assignment.models.Group;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.CollectionReference;
@@ -73,6 +74,7 @@ public class CreateGroupFragment extends Fragment {
     private Group newGroup = new Group();
     private String groupImageUrl;
 
+    private BottomNavigationView btmView;
 
 
     @Nullable
@@ -89,6 +91,9 @@ public class CreateGroupFragment extends Fragment {
         createGroup = rootView.findViewById(R.id.button_create_group);
         mCardViewGroupImage = rootView.findViewById(R.id.card_view_group_image);
         mProgressLayout = rootView.findViewById(R.id.progress_layout);
+
+        btmView = getActivity().findViewById(R.id.bottom_navigation);
+        btmView.setVisibility(View.GONE);
 
         initFirebaseConnection();
         initToolbar();
@@ -356,6 +361,7 @@ public class CreateGroupFragment extends Fragment {
                         Log.d(TAG, "DocumentSnapshot successfully updated!");
                         createChat();
                         updateUser();
+                        btmView.setVisibility(View.VISIBLE);
                         // Back to group page
                         Fragment selectedFragment = new GroupFragment();
                         getActivity().getSupportFragmentManager().beginTransaction()

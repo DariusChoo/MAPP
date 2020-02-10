@@ -118,22 +118,33 @@
     </RelativeLayout>
 
     <com.google.android.material.tabs.TabLayout
+        android:id="@+id/event_tab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/your_calendar_layout"
         app:tabIndicatorColor="#38598b">
 
         <com.google.android.material.tabs.TabItem
+            android:id="@+id/all_events"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/proxima_thin"
             android:text="ALL"/>
         <com.google.android.material.tabs.TabItem
+            android:id="@+id/going_events"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/proxima_thin"
             android:text="GOING"/>
 
     </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:layout_below="@+id/event_tab"
+        android:id="@+id/view_event"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </androidx.viewpager.widget.ViewPager>
 
 </RelativeLayout>

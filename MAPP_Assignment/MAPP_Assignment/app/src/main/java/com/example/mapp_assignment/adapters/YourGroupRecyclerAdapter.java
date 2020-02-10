@@ -54,20 +54,6 @@ public class YourGroupRecyclerAdapter extends RecyclerView.Adapter<YourGroupRecy
 
         holder.name.setText(mNames.get(position));
 
-//        holder.image.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Log.d(TAG, "onClick: clicked on an image: " + mNames.get(position));
-//                Toast.makeText(mFragmentActivity, mNames.get(position), Toast.LENGTH_SHORT).show();
-//
-////                Fragment selectedFragment = new GroupDetailFragment();
-////                mContext.getSupportFragmentManager().beginTransaction()
-////                        .replace(R.id.fragment_container, selectedFragment, "findThisFragment")
-////                        .addToBackStack(null)
-////                        .commit();
-//            }
-//        });
-
         holder.image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
