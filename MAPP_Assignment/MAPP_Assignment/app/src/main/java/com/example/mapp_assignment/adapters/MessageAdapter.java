@@ -23,25 +23,17 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
+public class MessageAdapter {
     private Context mContext;
-//    private User user = new User();
-    private ArrayList<Chat> mChats;
+    //    private User user = new User();
+    private Chat mChats;
 
-    public ChatAdapter(Context mContext, ArrayList<Chat> mChats){
+    public MessageAdapter(Context mContext, Chat mChats){
         this.mChats= mChats;
         this.mContext = mContext;
     }
 
-    @NonNull
-    @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.chat_user, parent, false);
-        return new ChatAdapter.ViewHolder(view);
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ChatAdapter.ViewHolder holder, int position) {
         final Chat chat = mChats.get(position);
         SimpleDateFormat inputFormat = new SimpleDateFormat("EEE MMM d HH:mm:ss zzz yyyy");
         SimpleDateFormat targetFormat = new SimpleDateFormat("E h:mm a");
@@ -83,28 +75,25 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         });
     }
 
+    @NonNull
     @Override
-    public int getItemCount() {
-        return mChats.size();
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(mContext).inflate(R.layout.activity_message_item, parent, false);
+        return new MessageAdapter.ViewHolder(view);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder
     {
-        public TextView chatname;
-        public TextView lastMsg;
-        public TextView timestamp;
-        public ImageView chat_image;
+        public TextView messages;
+        public TextView timestamp2;
 
 
         public ViewHolder(View itemView)
         {
             super(itemView);
-            lastMsg = itemView.findViewById(R.id.lastMsg);
-            chatname = itemView.findViewById(R.id.chat_name);
-            chat_image = itemView.findViewById(R.id.chat_image);
-            timestamp = itemView.findViewById(R.id.timestamp);
+            messages = itemView.findViewById(R.id.messages);
+            timestamp2 = itemView.findViewById(R.id.timestamp2);
         }
 
     }
-
 }

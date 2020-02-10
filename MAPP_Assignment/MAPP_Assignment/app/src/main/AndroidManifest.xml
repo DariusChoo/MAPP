@@ -25,6 +25,8 @@
 
         </activity>
 
+        <activity android:name=".ChatMessageActivity" android:noHistory="true"></activity>
+
         <activity android:name=".RegisterActivity" android:noHistory="true">
 
         </activity>

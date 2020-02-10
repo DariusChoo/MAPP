@@ -65,10 +65,11 @@ public class ChatFragment extends Fragment {
     SharedPreferences prefs;
     public static final String MyPREFERNCES = "MyPrefs";
     public static final String grpID = "grpKey";
-    SharedPreferences.Editor editor = prefs.edit();
+    //SharedPreferences.Editor editor = prefs.edit();
 
 
     //Writing data
+
 
 
 
@@ -127,6 +128,7 @@ public class ChatFragment extends Fragment {
         ChatAdapter adapter = new ChatAdapter(getActivity(),mChats);
         recyclerView.setAdapter(adapter);
     }
+
     //initialise Firebase connection
     private void initFirebaseConnection() {
         // Get instance of firebase authentication
