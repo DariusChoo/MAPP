@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="#77a0d0"
+
+    >
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#e9ebee"
+        android:clipToPadding="false">
+
+    </androidx.appcompat.widget.Toolbar>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/aboutCrux"
+        android:layout_below="@id/toolbar"
+        >
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:text="About Crux"
+            android:textSize="16dp"
+            android:textColor="#EEE"
+            android:fontFamily="@font/proxima_alt_bold"
+            android:layout_marginTop="10dp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#e9ebee"
+        android:id="@+id/nav_about_details"
+        android:layout_below="@id/aboutCrux"
+        >
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/details1"
+            android:text="Details"
+            android:textSize="16dp"
+            android:textColor="#666"
+            android:layout_margin="15dp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/aboutBasic"
+        android:layout_below="@id/nav_about_details"
+        >
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:text="Basic Function"
+            android:textSize="16dp"
+            android:textColor="#EEE"
+            android:fontFamily="@font/proxima_alt_bold"
+            android:layout_marginTop="10dp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#e9ebee"
+        android:id="@+id/nav_basic_details"
+        android:layout_below="@id/aboutBasic"
+        >
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/details2"
+            android:text="Details"
+            android:textSize="16dp"
+            android:textColor="#666"
+            android:layout_margin="15dp"/>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

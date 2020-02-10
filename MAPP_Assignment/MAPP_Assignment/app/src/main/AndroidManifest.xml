@@ -64,6 +64,9 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".About" android:noHistory="true">
+
+        </activity>
     </application>
 
 </manifest>

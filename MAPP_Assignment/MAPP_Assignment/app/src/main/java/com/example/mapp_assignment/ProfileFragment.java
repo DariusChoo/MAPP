@@ -74,9 +74,9 @@ public class ProfileFragment extends Fragment {
         mGroupCount = rootView.findViewById(R.id.group_count);
         mEventCount = rootView.findViewById(R.id.event_count);
 
+        initFirebaseConnection();
         initActionToolbar();
         initOnClickListener();
-        initFirebaseConnection();
         getUserProfile();
 
         return rootView;
@@ -258,6 +258,17 @@ public class ProfileFragment extends Fragment {
             case R.id.item_logout:
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(getContext(), LoginActivity.class));
+                return true;
+            case R.id.item_setting:
+                startActivity(new Intent(getContext(), ProfileSetting.class));
+                return true;
+            case R.id.item_about:
+                Fragment selectedFragment = new About();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .setCustomAnimations(R.anim.slide_in_right,R.anim.slide_out_left,R.anim.slide_in_left,R.anim.slide_out_right)
+                        .replace(R.id.fragment_container, selectedFragment, "findThisFragment")
+                        .addToBackStack(null)
+                        .commit();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

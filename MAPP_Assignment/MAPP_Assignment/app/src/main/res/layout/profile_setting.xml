@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/profile_top_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#EEE"
+        >
+
+
+        <TextView
+            android:id="@+id/cancelButton"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:linksClickable="true"
+            android:textSize="20dp"
+            android:textColor="#113f67"
+            android:text="Cancel"/>
+
+        <TextView
+            android:id="@+id/saveButton"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:linksClickable="true"
+            android:textSize="20dp"
+            android:fontFamily="@font/proxima_bold"
+            android:textColor="#113f67"
+            android:text="Save" />
+
+        <TextView
+            android:id="@+id/profileEvent"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:textColor="#113f67"
+            android:text="Event Going" />
+
+
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/profile_images_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/profile_top_layout">
+
+
+        <TextView
+            android:id="@+id/editProfile"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/proxima_regular"
+            android:textColor="#EEE"
+            android:textSize="20dp"
+            android:text="Edit Profile" />
+
+
+        <ImageButton
+            android:id="@+id/profileImages"
+            android:layout_centerHorizontal="true"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_below="@id/editProfile"/>
+
+
+        <TextView
+            android:id="@+id/personalDetail"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/profileImages"
+            android:fontFamily="@font/proxima_regular"
+            android:textSize="20dp"
+            android:textColor="#EEE"
+            android:text="Personal Detail" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/profile_detail_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#EEE"
+        android:layout_below="@id/profile_images_layout">
+
+        <RelativeLayout
+            android:id="@+id/profile_Name_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/userName"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/proxima_alt_bold"
+                android:textSize="20dp"
+                android:textColor="#333"
+                android:text="Name" />
+
+            <TextView
+                android:id="@+id/usernameInput"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/userName"
+                android:textColor="#333"
+                android:textSize="20dp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/profile_Gender_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/profile_Name_layout">
+
+            <TextView
+                android:id="@+id/userGender"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/proxima_alt_bold"
+                android:textSize="20dp"
+                android:textColor="#333"
+                android:text="Gender" />
+
+            <TextView
+                android:id="@+id/usergenderInput"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/userGender"
+                android:textColor="#333"
+                android:textSize="20dp" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/profileEmail_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/profile_Gender_layout">
+
+            <TextView
+                android:id="@+id/userEmail"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/proxima_alt_bold"
+                android:textSize="20dp"
+                android:textColor="#333"
+                android:text="Email" />
+
+            <TextView
+                android:id="@+id/userEmailInput"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/userEmail"
+                android:textColor="#333"
+                android:textSize="20dp" />
+
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+
+
+
+
+</RelativeLayout>

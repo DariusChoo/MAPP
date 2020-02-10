@@ -8,12 +8,12 @@
         app:showAsAction="always">
 
         <menu>
-            <item android:id="@+id/item1"
-                android:title="Item1"
+            <item android:id="@+id/item_setting"
+                android:title="Account Settings"
                 app:showAsAction="never"/>
 
-            <item android:id="@+id/item2"
-                android:title="Item2"
+            <item android:id="@+id/item_about"
+                android:title="About Crux"
                 app:showAsAction="never"/>
 
             <item android:id="@+id/item_logout"
